@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150" width="150" height="150" alt="NewGenAI Logo">
   <h1>NewGenAI Financial Agent</h1>
   <p><strong>Hệ thống AI Agent Dành Cho Truy Vấn & Trích Xuất Dữ Liệu Tài Chính Tiếng Việt</strong></p>
   <p>
