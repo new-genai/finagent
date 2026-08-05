@@ -216,3 +216,20 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Dataset and Models
+models/
+outputs/
+
+# Keep directory structure for data
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+data/metadata/*
+!data/metadata/.gitkeep
+
+data/indexes/*
+!data/indexes/.gitkeep
