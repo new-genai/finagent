@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: #09090B;
+  --color-foreground: #FAFAFA;
+  
+  --color-card: #111827;
+  --color-card-foreground: #FAFAFA;
+
+  --color-popover: #111827;
+  --color-popover-foreground: #FAFAFA;
+
+  --color-primary: #3B82F6;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-secondary: #1F2937;
+  --color-secondary-foreground: #FAFAFA;
+
+  --color-muted: #1F2937;
+  --color-muted-foreground: #9CA3AF;
+
+  --color-accent: #8B5CF6;
+  --color-accent-foreground: #FFFFFF;
+
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FAFAFA;
+
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+
+  --color-border: #1F2937;
+  --color-input: #1F2937;
+  --color-ring: #3B82F6;
+
+  --radius-lg: 0.75rem;
+  --radius-md: calc(0.75rem - 2px);
+  --radius-sm: calc(0.75rem - 4px);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --animate-border-beam: border-beam calc(var(--duration)*1s) infinite linear;
+  --animate-spin-around: spin-around calc(var(--speed)*2) infinite linear;
+  --animate-slide: slide var(--speed) ease-in-out infinite alternate;
+
+  @keyframes border-beam {
+    100% {
+      offset-distance: 100%;
+    }
+  }
+
+  @keyframes spin-around {
+    0% {
+      transform: translateZ(0) rotate(0);
+    }
+    15%, 35% {
+      transform: translateZ(0) rotate(90deg);
+    }
+    65%, 85% {
+      transform: translateZ(0) rotate(270deg);
+    }
+    100% {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
+
+  @keyframes slide {
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Custom scrollbar for modern look */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/60 backdrop-blur-xl border border-white/10;
+  }
+  
+  .glass-panel {
+    @apply bg-[#111827]/60 backdrop-blur-xl border border-white/5 shadow-2xl;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500;
+  }
+}
