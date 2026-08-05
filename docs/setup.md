@@ -13,7 +13,7 @@ Tài liệu này được soạn thảo nhằm mục đích giúp các thành vi
 - **Git LFS** (Git Large File Storage - bắt buộc để quản lý các file model hoặc dataset nặng)
 - **Python >= 3.12**
 - **Node.js >= 20** (bắt buộc cho Next.js 15)
-- **npm** (hoặc **pnpm**)
+- **npm** (đã được chốt làm package manager chính, sử dụng chung file `package-lock.json`)
 
 ---
 
@@ -84,8 +84,7 @@ cd frontend
 # Cài đặt các gói phụ thuộc của Node.js
 npm install
 
-# Hoặc nếu bạn ưu tiên dùng pnpm:
-# pnpm install
+
 ```
 
 ---
