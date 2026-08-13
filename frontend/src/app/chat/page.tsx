@@ -5,7 +5,7 @@ import { ChatInput } from "@/features/chat/ChatInput"
 import { MessageList } from "@/features/chat/MessageList"
 import { EvidencePanel } from "@/features/chat/EvidencePanel"
 import { ChatHistoryPanel } from "@/features/chat/ChatHistoryPanel"
-import { PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen } from "lucide-react"
+import { PanelLeftOpen, PanelRightOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -14,7 +14,7 @@ export default function ChatPage() {
   const [rightOpen, setRightOpen] = useState(true)
 
   return (
-    <div className="flex w-full h-[calc(100vh-3rem)] -m-4 md:-m-6 lg:-m-8 bg-background overflow-hidden relative">
+    <div suppressHydrationWarning className="flex w-full h-[calc(100vh-3rem)] -m-4 md:-m-6 lg:-m-8 bg-background overflow-hidden relative">
       
       {/* Left Panel: Conversation History */}
       <AnimatePresence initial={false}>

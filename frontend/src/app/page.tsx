@@ -5,9 +5,21 @@ import { GridPattern } from "@/components/ui/backgrounds/GridPattern"
 import { BorderBeam } from "@/components/ui/animations/BorderBeam"
 import { AnimatedBeam } from "@/components/ui/animations/AnimatedBeam"
 import { Search, MessageSquare, Database, FileText, BarChart2, ArrowRight } from "lucide-react"
+import { useDatasetStats } from "@/hooks/useQueries"
+import { useRouter } from "next/navigation"
 
 export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState("")
+  const { data: stats } = useDatasetStats()
+  const router = useRouter()
+  
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      // Small trick: We pass the query to chat page via local storage or just redirect and let user type.
+      // For MVP, we'll just redirect to chat. A robust solution would use a search param or state.
+      router.push('/chat')
+    }
+  }
 
   return (
     <div className="flex flex-col gap-12 w-full max-w-5xl mx-auto pb-10" suppressHydrationWarning>
@@ -25,7 +37,7 @@ export default function DashboardPage() {
         
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-6 relative z-10" suppressHydrationWarning>
           <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
-          AI Guru 2026 Ready
+          AI Guru 2026 Ready {stats ? `• ${stats.total_files} Reports Indexed` : ''}
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4 relative z-10">
@@ -45,6 +57,7 @@ export default function DashboardPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearch}
               placeholder="Hỏi bất kỳ câu hỏi tài chính nào... (VD: Doanh thu VNM năm 2023?)"
               className="flex-1 bg-transparent border-none outline-none ring-0 py-4 text-base placeholder:text-muted-foreground text-foreground"
             />
@@ -61,12 +74,12 @@ export default function DashboardPage() {
         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">Quick Actions</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4" suppressHydrationWarning>
           {[
-            { name: "Chat AI", icon: MessageSquare, color: "from-blue-500/20 to-transparent", border: "group-hover:border-blue-500/50" },
-            { name: "Browse Dataset", icon: Database, color: "from-emerald-500/20 to-transparent", border: "group-hover:border-emerald-500/50" },
-            { name: "Run Parser", icon: FileText, color: "from-orange-500/20 to-transparent", border: "group-hover:border-orange-500/50" },
-            { name: "Evaluate Model", icon: BarChart2, color: "from-purple-500/20 to-transparent", border: "group-hover:border-purple-500/50" },
+            { name: "Chat AI", icon: MessageSquare, color: "from-blue-500/20 to-transparent", border: "group-hover:border-blue-500/50", action: () => router.push('/chat') },
+            { name: `Browse ${stats ? stats.total_tables : ''} Tables`, icon: Database, color: "from-emerald-500/20 to-transparent", border: "group-hover:border-emerald-500/50", action: () => router.push('/dataset') },
+            { name: "Run Parser", icon: FileText, color: "from-orange-500/20 to-transparent", border: "group-hover:border-orange-500/50", action: () => router.push('/parser') },
+            { name: "Evaluate Model", icon: BarChart2, color: "from-purple-500/20 to-transparent", border: "group-hover:border-purple-500/50", action: () => router.push('/evaluation') },
           ].map((action, i) => (
-            <div key={i} className={`group cursor-pointer rounded-xl border border-white/5 bg-card/50 p-5 transition-all hover:bg-card ${action.border} relative overflow-hidden`} suppressHydrationWarning>
+            <div key={i} onClick={action.action} className={`group cursor-pointer rounded-xl border border-white/5 bg-card/50 p-5 transition-all hover:bg-card ${action.border} relative overflow-hidden`} suppressHydrationWarning>
               <div className={`absolute inset-0 bg-gradient-to-br ${action.color} opacity-0 group-hover:opacity-100 transition-opacity`} suppressHydrationWarning />
               <action.icon className="w-5 h-5 text-foreground mb-3 relative z-10" />
               <div className="font-medium text-sm text-foreground relative z-10" suppressHydrationWarning>{action.name}</div>

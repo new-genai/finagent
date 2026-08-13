@@ -1,9 +1,20 @@
 """
-Dataset Parser Module for NewGenAI Financial Agent.
-
-This module provides a unified interface for parsing financial reports.
+Dataset Parser Module for AI Financial Agent
 """
+from .models import FinancialReport, Page, Table, Metadata
+from .exceptions import ParserError, EncodingError, DatasetNotFoundError, InvalidReportError
+from .interfaces import Parser
+from .report_parser import FinancialReportParser
 
-from .parser import FinancialReportParser
-
-__all__ = ["FinancialReportParser"]
+__all__ = [
+    "FinancialReport",
+    "Page",
+    "Table",
+    "Metadata",
+    "ParserError",
+    "EncodingError",
+    "DatasetNotFoundError",
+    "InvalidReportError",
+    "Parser",
+    "FinancialReportParser",
+]
