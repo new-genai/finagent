@@ -3,13 +3,21 @@
 import React, { useState } from "react"
 import { FileText, Download, Terminal, Play, Copy, PanelRightClose } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useChatStore } from "@/store/useChatStore"
 
 interface EvidencePanelProps {
   onClose?: () => void
 }
 
 export function EvidencePanel({ onClose }: EvidencePanelProps) {
-  const [activeTab, setActiveTab] = useState<"evidence" | "code">("evidence")
+  const [activeTab, setActiveTab] = useState<"evidence" | "code">("code")
+  // Force Turbopack rebuild to clear cached TypeError
+  const sessionMessages = useChatStore(state => state.sessions.find(s => s.id === state.currentSessionId)?.messages)
+  const messages = sessionMessages || []
+
+  const lastAssistantMsg = [...messages].reverse().find(m => m.role === 'assistant')
+  const code = lastAssistantMsg?.thought_process || "No query has been executed yet."
+  const tables = lastAssistantMsg?.tables_used || []
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -39,66 +47,40 @@ export function EvidencePanel({ onClose }: EvidencePanelProps) {
       <div className="flex-1 overflow-y-auto">
         {activeTab === "evidence" && (
           <div className="p-4 flex flex-col gap-4">
-            <div className="rounded-lg border border-white/10 bg-card overflow-hidden">
-              <div className="p-3 border-b border-white/10 flex items-start gap-3 bg-white/5">
-                <FileText className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate text-foreground">BCTC_HPG_2023.pdf</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">Page 12 • KQKDHN Table</p>
-                </div>
-              </div>
-              <div className="p-3 bg-card text-xs">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="text-muted-foreground border-b border-white/10">
-                      <th className="pb-2 font-medium">Chỉ tiêu</th>
-                      <th className="pb-2 font-medium text-right">Năm 2023</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-foreground">
-                    <tr className="border-b border-white/5">
-                      <td className="py-2 bg-primary/10 font-medium">1. Doanh thu bán hàng</td>
-                      <td className="py-2 text-right bg-primary/10">118,953</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 text-muted-foreground">5. Lợi nhuận gộp</td>
-                      <td className="py-2 text-right text-muted-foreground">12,450</td>
-                    </tr>
-                    <tr className="border-t border-white/5">
-                      <td className="py-2 bg-primary/10 font-medium">11. LN sau thuế</td>
-                      <td className="py-2 text-right bg-primary/10">6,800</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            {tables.length === 0 ? (
+              <div className="text-muted-foreground text-sm text-center mt-10">No tables retrieved.</div>
+            ) : (
+              tables.map((t, idx) => {
+                const parts = t.split('.csv');
+                const title = parts[0] ? parts[0] + '.csv' : t;
+                return (
+                  <div key={idx} className="rounded-lg border border-white/10 bg-card overflow-hidden">
+                    <div className="p-3 border-b border-white/10 flex items-start gap-3 bg-white/5">
+                      <FileText className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate text-foreground" title={title}>{title}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">Hybrid Search Result</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+            )}
           </div>
         )}
 
         {activeTab === "code" && (
           <div className="flex flex-col h-full">
-            <div className="flex-1 bg-[#09090B] p-4 overflow-auto text-xs font-mono leading-relaxed text-[#d4d4d4]">
-              <div className="text-blue-400">import <span className="text-[#d4d4d4]">pandas</span> as <span className="text-[#d4d4d4]">pd</span></div>
-              <div className="text-blue-400">import <span className="text-[#d4d4d4]">duckdb</span></div>
-              <br/>
-              <div className="text-green-600"># Connect to hybrid database</div>
-              <div>con = duckdb.connect(<span className="text-orange-300">'finagent.db'</span>)</div>
-              <br/>
-              <div className="text-green-600"># Fetch data for HPG 2023</div>
-              <div>df = con.execute(<span className="text-orange-300">"""</span></div>
-              <div className="text-orange-300">  SELECT * FROM kqkndhn_2023 </div>
-              <div className="text-orange-300">  WHERE company = 'HPG'</div>
-              <div><span className="text-orange-300">"""</span>).df()</div>
+            <div className="flex-1 bg-[#09090B] p-4 overflow-auto text-[13px] font-mono leading-relaxed text-[#d4d4d4]">
+              <pre><code>{code}</code></pre>
             </div>
             
-            <div className="h-40 border-t border-white/10 bg-card p-4 overflow-auto font-mono text-xs">
+            <div className="border-t border-white/10 bg-card p-4 overflow-auto font-mono text-xs">
               <div className="text-muted-foreground mb-2 flex items-center justify-between">
-                <span>Execution Result:</span>
-                <span className="text-emerald-500">Success (14ms)</span>
-              </div>
-              <div className="text-foreground">
-                Revenue: 118,953<br/>
-                Net Profit: 6,800
+                <span>Execution Status:</span>
+                <span className={code !== "No query has been executed yet." ? "text-emerald-500" : "text-muted-foreground"}>
+                  {code !== "No query has been executed yet." ? "Auto-Executed" : "Idle"}
+                </span>
               </div>
             </div>
           </div>

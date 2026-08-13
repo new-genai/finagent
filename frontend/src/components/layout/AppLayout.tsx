@@ -15,7 +15,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const { isSidebarOpen } = useAppStore()
   const pathname = usePathname()
   
-  const showRightPanel = pathname === "/" || pathname === "/chat"
+  const showRightPanel = pathname === "/"
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background">

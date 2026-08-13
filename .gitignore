@@ -233,3 +233,13 @@ data/metadata/*
 
 data/indexes/*
 !data/indexes/.gitkeep
+
+# Ignored large files
+OllamaSetup.exe
+*.exe
+*.db
+brain/
+data/finagent.db
+data/index/faiss.faiss
+data/index/*.pkl
+data/metadata/schemas.json
