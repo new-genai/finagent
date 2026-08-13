@@ -1,11 +1,24 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { Send, CheckCircle2, Circle, Play, Download } from "lucide-react"
 import { ShineButton } from "@/components/ui/animations/ShineButton"
-import { AnimatedBeam } from "@/components/ui/animations/AnimatedBeam"
+import { useSubmissionMutation } from "@/hooks/useQueries"
 
 export default function SubmissionPage() {
+  const { mutateAsync: generate, isPending } = useSubmissionMutation()
+  const [isSuccess, setIsSuccess] = useState(false)
+
+  const handleGenerate = async () => {
+    try {
+      await generate()
+      setIsSuccess(true)
+    } catch (error) {
+      console.error(error)
+      alert("Failed to generate submission")
+    }
+  }
+
   return (
     <div className="flex flex-col gap-8 h-full w-full max-w-4xl mx-auto pt-4 pb-10">
       
@@ -48,21 +61,36 @@ export default function SubmissionPage() {
         </div>
 
         <div className="flex flex-col items-center gap-4 border-t border-white/5 pt-8 relative z-10">
-          <ShineButton className="h-12 px-10 gap-2 bg-primary text-base font-medium shadow-[0_0_40px_rgba(59,130,246,0.3)]">
-            <Play className="w-4 h-4 fill-current" />
-            Generate submission.json
+          <ShineButton 
+            onClick={handleGenerate}
+            disabled={isPending || isSuccess}
+            className={`h-12 px-10 gap-2 text-base font-medium ${isSuccess ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-primary shadow-[0_0_40px_rgba(59,130,246,0.3)]'}`}
+          >
+            {isPending ? (
+              <>Generating...</>
+            ) : isSuccess ? (
+              <><CheckCircle2 className="w-4 h-4" /> Generated Successfully</>
+            ) : (
+              <><Play className="w-4 h-4 fill-current" /> Generate submission.json</>
+            )}
           </ShineButton>
-          <div className="text-xs text-muted-foreground">Estimated time: 45 minutes</div>
+          {!isSuccess && <div className="text-xs text-muted-foreground">Estimated time: 45 minutes</div>}
         </div>
       </div>
 
       {/* Post-generation actions */}
-      <div className="grid grid-cols-2 gap-4 opacity-50 pointer-events-none">
-        <button className="flex flex-col items-center justify-center gap-2 h-24 rounded-xl border border-dashed border-white/20 bg-white/5 hover:bg-white/10 transition-colors">
+      <div className={`grid grid-cols-2 gap-4 ${isSuccess ? '' : 'opacity-50 pointer-events-none'}`}>
+        <button 
+          onClick={() => isSuccess && alert('Download started')}
+          className="flex flex-col items-center justify-center gap-2 h-24 rounded-xl border border-dashed border-white/20 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+        >
           <Download className="w-5 h-5 text-muted-foreground" />
           <span className="text-sm font-medium">Download JSON</span>
         </button>
-        <button className="flex flex-col items-center justify-center gap-2 h-24 rounded-xl border border-dashed border-white/20 bg-white/5 hover:bg-white/10 transition-colors">
+        <button 
+          onClick={() => isSuccess && alert('Submission sent')}
+          className="flex flex-col items-center justify-center gap-2 h-24 rounded-xl border border-dashed border-white/20 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+        >
           <Send className="w-5 h-5 text-muted-foreground" />
           <span className="text-sm font-medium">Submit to Kaggle</span>
         </button>

@@ -3,6 +3,8 @@
 import React from "react"
 import { Database, Search, Filter } from "lucide-react"
 
+const tableCounts = [356, 418, 297, 521, 463, 382, 444, 319, 508, 276, 397, 489, 332, 455, 371]
+
 export default function DatasetPage() {
   return (
     <div className="flex flex-col gap-6 h-full w-full max-w-7xl mx-auto pb-6 pt-4">
@@ -54,7 +56,7 @@ export default function DatasetPage() {
                   <td className="py-3 px-4 text-accent font-medium">{['VNM', 'HPG', 'FPT', 'MWG', 'VCB'][i % 5]}</td>
                   <td className="py-3 px-4 text-muted-foreground">HOSE</td>
                   <td className="py-3 px-4 text-right">10</td>
-                  <td className="py-3 px-4 text-right text-muted-foreground">{Math.floor(Math.random() * 500) + 100}</td>
+                  <td className="py-3 px-4 text-right text-muted-foreground">{tableCounts[i]}</td>
                   <td className="py-3 px-4">
                     <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
                       Indexed

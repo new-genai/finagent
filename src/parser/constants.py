@@ -1,6 +1,3 @@
-"""
-Constants used across the parser module.
-"""
-
+# Define parser constants here
 DEFAULT_ENCODING = "utf-8"
-FALLBACK_ENCODING = "cp1252"
+SUPPORTED_EXTENSIONS = (".txt", ".csv", ".pdf", ".json")

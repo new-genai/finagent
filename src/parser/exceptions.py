@@ -1,23 +1,15 @@
-"""
-Custom exceptions for the Dataset Parser module.
-"""
-
 class ParserError(Exception):
     """Base class for all parser exceptions."""
     pass
 
-class DatasetNotFoundError(ParserError):
-    """Raised when the target dataset or file is not found."""
-    pass
-
 class EncodingError(ParserError):
-    """Raised when the file cannot be decoded."""
+    """Raised when there is an issue decoding the dataset."""
     pass
 
-class MetadataError(ParserError):
-    """Raised when metadata extraction fails."""
+class DatasetNotFoundError(ParserError):
+    """Raised when the dataset file or directory cannot be found."""
     pass
 
 class InvalidReportError(ParserError):
-    """Raised when the report content is invalid or unreadable."""
+    """Raised when the report structure is invalid or unparseable."""
     pass
