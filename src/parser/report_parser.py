@@ -76,7 +76,7 @@ class FinancialReportParser(Parser):
         return self
 
     def extract_tables(self) -> 'FinancialReportParser':
-        """Extracts table data into Table models for each page."""
+        """Extracts table data into Table models for each page and merges split tables."""
         if not self._temp_table_locations and not self._pages:
             raise ParserError("Must call detect_tables() before extract_tables().")
             
@@ -86,6 +86,25 @@ class FinancialReportParser(Parser):
             for loc in locations:
                 table = self.table_extractor.extract(page.content, loc, page_number=page.page_number)
                 page.tables.append(table)
+                
+        # --- BẮT ĐẦU SPATIAL MERGING (GỘP BẢNG VẮT TRANG) ---
+        for i in range(1, len(self._pages)):
+            prev_page = self._pages[i-1]
+            curr_page = self._pages[i]
+            
+            if prev_page.tables and curr_page.tables:
+                last_table_prev = prev_page.tables[-1]
+                first_table_curr = curr_page.tables[0]
+                
+                # Nhận diện Spatial: Nếu 2 bảng có cùng Header, tức là cùng 1 bảng bị cắt trang
+                if last_table_prev.headers and first_table_curr.headers:
+                    if last_table_prev.headers == first_table_curr.headers:
+                        # Nối Rows của Child vào Parent Table
+                        last_table_prev.rows.extend(first_table_curr.rows)
+                        # Xóa bảng mảnh vỡ ở trang hiện tại
+                        curr_page.tables.pop(0)
+        # --- KẾT THÚC SPATIAL MERGING ---
+        
         return self
 
     def extract_metadata(self) -> 'FinancialReportParser':

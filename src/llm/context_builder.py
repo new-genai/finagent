@@ -1,34 +1,68 @@
-from typing import List
+import logging
+from typing import List, Any
+import pandas as pd
 from src.schemas.core import RetrievedTable
 
+logger = logging.getLogger(__name__)
+
 class ContextBuilder:
-    """Xây dựng phần Context (dữ liệu các bảng) để nạp vào Prompt."""
+    def __init__(self, table_loader: Any = None, **kwargs):
+        self.table_loader = table_loader
 
-    def build(self, tables: List[RetrievedTable]) -> str:
-        """
-        Chuyển đổi danh sách RetrievedTable thành chuỗi Text mô tả schema và dữ liệu mẫu.
-        Giúp LLM hiểu được cấu trúc của các DataFrame được inject vào sandbox.
-        """
-        if not tables:
-            return "Không có dữ liệu bảng nào được tìm thấy."
-
-        context_str = "DỮ LIỆU ĐƯỢC CUNG CẤP (Nằm trong dict `dfs`):\n"
-        context_str += "=" * 50 + "\n\n"
-
-        for i, table in enumerate(tables, 1):
-            context_str += f"Table Name: {table.table_id}\n"
+    def _get_top_relevant_rows_fast(self, df: pd.DataFrame, metric_intent: str, top_n: int = 5) -> pd.DataFrame:
+        if df.empty or not metric_intent:
+            return df.head(top_n)
             
-            # Use dataframe to extract exact columns and preview
-            if table.dataframe is not None and not table.dataframe.empty:
-                columns = list(table.dataframe.columns)
-                context_str += f"Columns: {columns}\n"
-                
-                # Convert the first 3 rows to markdown for preview
-                preview = table.dataframe.head(3).to_markdown(index=False)
-                context_str += f"Preview:\n{preview}\n\n"
-            else:
-                context_str += f"Columns: {table.columns}\n"
-                context_str += "Preview: [Không có dữ liệu]\n\n"
+        intent_lower = metric_intent.lower()
+        # BỎ ĐIỀU KIỆN len(w) > 2
+        keywords = [w for w in intent_lower.split() if len(w) > 0]
+        
+        if not keywords:
+            return df.head(top_n)
+            
+        def score_row(row):
+            row_str = " ".join([str(val).lower() for val in row.values if pd.notna(val)])
+            score = sum(1 for k in keywords if k in row_str)
+            if "doanh thu" in row_str: score += 50
+            if "lợi nhuận" in row_str or "lnst" in row_str: score += 50
+            if "sau thuế" in row_str: score += 50
+            if "tài sản" in row_str or "nguồn vốn" in row_str: score += 50
+            if "nợ" in row_str: score += 50
+            return score
+            
+        scores = df.apply(score_row, axis=1)
+        if scores.max() == 0:
+            return df.head(top_n)
+            
+        top_indices = scores.nlargest(top_n).index
+        return df.loc[top_indices]
 
-        context_str += "=" * 50 + "\n"
-        return context_str
+    def build(self, tables: List[RetrievedTable], metric_intent: str = '') -> str:
+        if not tables:
+            return 'Khong co bang du lieu nao.'
+            
+        context_lines = []
+        for t in tables:
+            t_id = getattr(t, 'table_id', 'unknown')
+            comp = getattr(t, 'company', 'unknown')
+            year = getattr(t, 'year', 'unknown')
+            cols = getattr(t, 'columns', [])
+            
+            header_info = f"- BẢNG dfs['{t_id}'] | Cong ty {comp} ({year}) | Cot: {' | '.join(cols)}"
+            df = getattr(t, 'dataframe', None)
+            
+            if df is not None and isinstance(df, pd.DataFrame) and not df.empty:
+                dtypes_str = ', '.join([f"'{c}': {dtype}" for c, dtype in df.dtypes.items()])
+                schema_info = f"Schema: {{ {dtypes_str} }}"
+                top_df = self._get_top_relevant_rows_fast(df, metric_intent, top_n=5)
+                try:
+                    sample_data = top_df.to_markdown(index=True)
+                except Exception:
+                    sample_data = top_df.to_string(index=True)
+            else:
+                schema_info = 'Schema: Empty'
+                sample_data = '(Bang rong)'
+                
+            context_lines.append(f"{header_info}\n  {schema_info}\n  [TOP DONG LIEN QUAN]:\n{sample_data}\n")
+            
+        return '\n'.join(context_lines)

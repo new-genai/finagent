@@ -1,20 +1,22 @@
 import logging
 import pandas as pd
 from typing import Tuple
-
 from src.core.config import settings
 from src.database.duckdb_service import DuckDBService
+
+# Import class làm sạch dữ liệu tài chính
+from src.metadata.normalizer import FinancialDataCleaner
 
 logger = logging.getLogger(__name__)
 
 class PandasExecutor:
-    """Executes generated Pandas code securely with a timeout."""
+    """Thực thi mã Pandas sinh bởi LLM trong môi trường Sandbox."""
     
     def __init__(self):
         self.timeout = settings.PANDAS_EXECUTION_TIMEOUT_SEC
-        
+
     def _is_safe(self, code: str) -> bool:
-        """Kiểm tra thô độ an toàn của code sinh bởi LLM (Block os, sys...)."""
+        """Kiểm tra mã độc (os, sys, subprocess...)."""
         banned = ["os", "sys", "subprocess", "eval", "exec", "open", "__import__"]
         for b in banned:
             if b in code:
@@ -22,18 +24,19 @@ class PandasExecutor:
         return True
 
     def execute(self, code: str, dfs: dict) -> Tuple[bool, str]:
-        """
-        Thực thi code Pandas. Có Timeout và Error Handling.
-        Returns: Tuple(Success(True/False), Kết quả/Lỗi)
-        """
+        """Thực thi mã Pandas an toàn."""
         logger.info("Executing LLM Generated Pandas code...")
         
         if not self._is_safe(code):
             return False, "Code execution blocked due to security reasons."
-
-        # Since multiprocessing with DuckDB in-memory causes pickling errors, 
-        # we execute synchronously for MVP.
-        local_vars = {"pd": pd, "dfs": dfs}
+            
+        # Nạp pandas, dict các dataframes và ĐẶC BIỆT là hàm parse số liệu vào Sandbox
+        local_vars = {
+            "pd": pd, 
+            "dfs": dfs,
+            "parse_vn_financial_number": FinancialDataCleaner.parse_vn_financial_number
+        }
+        
         wrapped_code = f"""
 try:
 {chr(10).join(['    ' + line for line in code.split(chr(10))])}

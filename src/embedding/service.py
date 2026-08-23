@@ -41,12 +41,25 @@ class EmbeddingService:
         
     def embed_table_schema(self, title: str, headers: List[str], keywords: List[str]) -> np.ndarray:
         """
-        Tạo embedding đại diện cho một bảng (Table).
-        Gom nhóm title, headers và keywords thành một khối văn bản giàu ngữ nghĩa.
+        PARENT-CHILD RETRIEVAL:
+        Tạo đoạn Tóm tắt ngữ nghĩa (Summary Chunk - Child Node) đại diện cho Parent Table.
         """
-        headers_str = ", ".join(str(h) for h in headers) if headers else "Không có cột"
-        keywords_str = ", ".join(str(k) for k in keywords) if keywords else ""
+        headers_str = " | ".join(str(h) for h in headers) if headers else "Không có tiêu đề cột"
         
-        # Tạo chuỗi mô tả ngữ nghĩa
-        combined_text = f"Bảng: {title}. Các cột: {headers_str}. Từ khóa: {keywords_str}"
-        return self.embed_text(combined_text)
+        # Rút gọn dòng (chỉ lấy 20 chỉ tiêu đầu tiên để đại diện cho toàn bộ bảng)
+        unique_rows = list(dict.fromkeys([str(k) for k in keywords]))[:20]
+        row_str = " ; ".join(unique_rows)
+        
+        # Child Node Summary (Đoạn tóm tắt được Vector hóa)
+        child_summary = (
+            f"Tóm tắt Bảng tài chính (Child Node):\n"
+            f"- Ngữ cảnh: {title}\n"
+            f"- Cấu trúc không gian - Cột (Columns): {headers_str}\n"
+            f"- Cấu trúc không gian - Dòng (Rows): {row_str}\n"
+            f"-> Bảng này (Parent Table) chứa số liệu chi tiết của các chỉ tiêu trên. "
+            f"Dùng bảng này để tra cứu và trả lời câu hỏi về {headers_str}."
+        )
+        
+        # Embed cái Summary Chunk này thay vì chuỗi phẳng. 
+        # Khi Retriever tìm thấy nó, ID của Parent Table sẽ được trả về để bốc nguyên DataFrame.
+        return self.embed_text(child_summary)

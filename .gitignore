@@ -243,3 +243,9 @@ data/finagent.db
 data/index/faiss.faiss
 data/index/*.pkl
 data/metadata/schemas.json
+
+venv_gpu/
+submission_temp/
+*.zip
+*_summary_for_ai.txt
+update_fix.py

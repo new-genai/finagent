@@ -1,25 +1,56 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 class PromptBuilder:
-    """Xây dựng Prompt cho LLM dựa trên Context Builder."""
-    
-    def build_prompt(self, question: str, context_str: str) -> str:
-        """
-        Tạo prompt yêu cầu LLM viết code Pandas dựa trên các DataFrame đã được load.
-        """
-        prompt = f"""Bạn là một chuyên gia phân tích dữ liệu tài chính (Data Analyst).
-Nhiệm vụ của bạn là viết code Python (sử dụng thư viện Pandas) để phân tích các DataFrame và trả lời câu hỏi của người dùng.
+    def build_data_aware_prompt(self, question: str, context_str: str, dfs: dict) -> str:
+        # Trích xuất dữ liệu mẫu từ các DataFrame thực tế
+        samples = []
+        for t_id, df in dfs.items():
+            head_md = df.head(3).to_markdown()
+            samples.append(f"--- BẢNG dfs['{t_id}'] (Columns: {list(df.columns)}) ---\n{head_md}\n")
+        
+        sample_data_str = "\n".join(samples)
+        
+        return (
+            f"Bạn là chuyên gia lập trình Pandas tài chính.\n"
+            f"Câu hỏi: '{question}'\n\n"
+            f"DỮ LIỆU MẪU THỰC TẾ (SAMPLE ROWS):\n{sample_data_str}\n\n"
+            f"HƯỚNG DẪN:\n"
+            f"1. Dựa vào dữ liệu mẫu phía trên, hãy chọn đúng tên cột và tên dòng.\n"
+            f"2. Tuyệt đối KHÔNG dùng hàm .max() bừa bãi. Phải lọc đúng dòng chỉ tiêu.\n"
+            f"3. Gán kết quả cuối cùng vào biến `result` (kiểu float).\n\n"
+            f"Viết mã Python trong khối ```python ... ```."
+        )
 
-{context_str}
+    def build_multi_calc_prompt(self, question: str, context_str: str) -> str:
+        """Prompt tối ưu cho bài toán tính toán liên bảng (Câu 2)."""
+        return (
+            f"Bạn là chuyên gia lập trình Python Pandas tính toán Báo cáo tài chính.\n"
+            f"Câu hỏi: '{question}'\n\n"
+            f"DANH SÁCH CÁC BẢNG DỮ LIỆU (`dfs` dictionary):\n{context_str}\n\n"
+            f"HƯỚNG DẪN VIẾT CODE TÍNH TỔNG:\n"
+            f"1. Duyệt qua từng DataFrame trong `dfs.values()`.\n"
+            f"2. Với mỗi DataFrame, tìm cột năm tương ứng và lấy giá trị lớn nhất `.max()` của bảng đó.\n"
+            f"3. Cộng dồn kết quả các bảng lại với nhau vào biến `result`.\n\n"
+            f"VÍ DỤ MẪU CHUẨN:\n"
+            f"```python\n"
+            f"total_val = 0.0\n"
+            f"for df in dfs.values():\n"
+            f"    year_cols = [c for c in df.columns if '2023' in str(c)]\n"
+            f"    if year_cols:\n"
+            f"        target_col = year_cols[0]\n"
+            f"        val = df[target_col].dropna().astype(float).max()\n"
+            f"        total_val += val\n"
+            f"result = total_val\n"
+            f"```\n\n"
+            f"Chỉ trả về mã Python trong khối ```python ... ```."
+        )
 
-CÂU HỎI CỦA NGƯỜI DÙNG:
-{question}
+    def build_coder_prompt(self, question: str, context_str: str, mode: str = "single") -> str:
+        if mode == "multi":
+            return self.build_multi_calc_prompt(question, context_str)
+        return self.build_single_lookup_prompt(question, context_str)
 
-LUẬT THỰC THI (QUAN TRỌNG):
-1. Bạn KHÔNG được bịa dữ liệu. Bạn CHỈ ĐƯỢC sử dụng các DataFrame đã cung cấp trong biến `dfs` (ví dụ: `df = dfs['VNM_2023_page1_table1']`).
-2. KHÔNG tạo thêm bất kỳ DataFrame giả nào. Nếu dữ liệu cung cấp không đủ để trả lời câu hỏi, hãy gán `result = "Không tìm thấy thông tin."`
-3. KHÔNG sử dụng cơ sở dữ liệu SQL (Không dùng `db.query`). Chỉ sử dụng Pandas thao tác trên các biến có sẵn.
-4. KHÔNG import thêm bất kỳ thư viện nào khác ngoài pandas (đã có sẵn `pd`).
-5. Kết quả cuối cùng BẮT BUỘC phải được gán vào biến tên là `result`.
-6. Nếu câu trả lời là một con số, hãy sử dụng f-string để định dạng thành câu tiếng Việt hoàn chỉnh (VD: `result = f"Doanh thu của VNM năm 2023 là {{val}} tỷ đồng."`). Nếu kết quả là DataFrame, cứ gán thẳng `result = df`.
-7. CHỈ TRẢ VỀ DUY NHẤT CODE PYTHON. Không giải thích, không output thêm bất kỳ văn bản nào ngoài block code.
-"""
-        return prompt
+    def build_planner_prompt(self, question: str, context_str: str) -> str:
+        return ""
