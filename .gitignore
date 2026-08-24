@@ -249,3 +249,9 @@ submission_temp/
 *.zip
 *_summary_for_ai.txt
 update_fix.py
+
+submission.json
+test_results.json
+test_*.py
+scratch/
+scripts/data/
