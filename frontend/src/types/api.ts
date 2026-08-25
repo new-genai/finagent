@@ -3,6 +3,8 @@ export interface DatasetStatsResponse {
   total_tables: number;
   companies: string[];
   years: string[];
+  company_table_counts?: Record<string, number>;
+  year_table_counts?: Record<string, number>;
 }
 
 export interface RetrieveRequest {

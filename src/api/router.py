@@ -1,8 +1,9 @@
 import logging
+import re
 from typing import List, Dict, Any
 from fastapi import APIRouter, HTTPException, Depends
 from simpleeval import simple_eval
-from src.schemas.api import ChatRequest, ChatResponse, Evidence
+from src.schemas.api import ChatRequest, ChatResponse, Evidence, DatasetStatsResponse, RetrieveRequest, RetrieveResponse, ExecuteRequest, ExecuteResponse
 from src.core.config import settings
 from .deps import get_hybrid_retriever, get_pandas_executor, get_llm_service, get_table_loader
 from src.agents.base import QueryPlan, ExecutionStep
@@ -10,6 +11,129 @@ import concurrent.futures
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+def _get_index_docs(retriever) -> List[Dict[str, Any]]:
+    bm25 = getattr(retriever, "bm25", None)
+    docs = getattr(bm25, "doc_store", None)
+    return docs or []
+
+
+def _missing_data_answer(requested_companies: set[str], requested_years: set[str], retriever) -> ChatResponse | None:
+    docs = _get_index_docs(retriever)
+    if not docs:
+        return ChatResponse(
+            answer="Backend chưa có dữ liệu index để trả lời. Hãy chạy lại bước build metadata/index.",
+            tables_used=[],
+        )
+
+    available_companies = {str(doc.get("company", "")).upper() for doc in docs if doc.get("company")}
+    unknown_companies = requested_companies - available_companies
+    available_years = {str(doc.get("year", "")) for doc in docs if doc.get("year")}
+
+    if unknown_companies:
+        tickers = ", ".join(sorted(unknown_companies))
+        return ChatResponse(
+            answer=f"Hiện index chưa có dữ liệu cho mã {tickers}, nên mình không thể trả lời chính xác câu hỏi này.",
+            tables_used=[],
+        )
+
+    scoped_docs = [
+        doc for doc in docs
+        if not requested_companies or str(doc.get("company", "")).upper() in requested_companies
+    ]
+
+    if requested_years:
+        scoped_years = {str(doc.get("year", "")) for doc in scoped_docs if doc.get("year")}
+        missing_years = requested_years - scoped_years
+        if missing_years:
+            years = ", ".join(sorted(missing_years))
+            available = ", ".join(sorted(scoped_years or available_years)) or "chưa rõ"
+            return ChatResponse(
+                answer=f"Hiện dữ liệu index chưa có năm {years}. Các năm đang có: {available}.",
+                tables_used=[],
+            )
+
+    return None
+
+
+def _extract_table_dimensions(table_name: str) -> tuple[str | None, str | None]:
+    match = re.match(r"^([A-Z0-9]{2,10})_(\d{4})_", table_name.upper())
+    if not match:
+        return None, None
+    return match.group(1), match.group(2)
+
+@router.get("/health")
+def health_check():
+    """Kiểm tra trạng thái server."""
+    return {"status": "ok", "version": settings.APP_VERSION}
+
+@router.get("/dataset/statistics", response_model=DatasetStatsResponse)
+def get_statistics(db = Depends(get_db_service)):
+    """Lấy thống kê sơ bộ về Dataset."""
+    table_names: list[str] = []
+
+    try:
+        if db:
+            rows = db.query("SHOW TABLES")
+            if hasattr(rows, "iloc"):
+                table_names = [str(value) for value in rows.iloc[:, 0].tolist()]
+            else:
+                table_names = [str(row[0]) for row in rows]
+    except Exception as e:
+        logger.warning(f"Could not read DuckDB table statistics: {e}")
+
+    if not table_names:
+        csv_dir = settings.BASE_DIR / "data" / "processed" / "csv"
+        if csv_dir.exists():
+            table_names = [path.stem for path in csv_dir.glob("*.csv")]
+
+    company_counts: dict[str, int] = {}
+    year_counts: dict[str, int] = {}
+    report_keys: set[tuple[str, str]] = set()
+
+    for table_name in table_names:
+        company, year = _extract_table_dimensions(table_name)
+        if company:
+            company_counts[company] = company_counts.get(company, 0) + 1
+        if year:
+            year_counts[year] = year_counts.get(year, 0) + 1
+        if company and year:
+            report_keys.add((company, year))
+
+    return DatasetStatsResponse(
+        total_files=len(report_keys),
+        total_tables=len(table_names),
+        companies=sorted(company_counts),
+        years=sorted(year_counts),
+        company_table_counts=dict(sorted(company_counts.items())),
+        year_table_counts=dict(sorted(year_counts.items()))
+    )
+
+@router.post("/retrieve", response_model=RetrieveResponse)
+def retrieve_tables(req: RetrieveRequest, retriever = Depends(get_hybrid_retriever)):
+    """Tìm kiếm các bảng phù hợp với câu hỏi bằng Hybrid Search."""
+    if not retriever:
+        raise HTTPException(status_code=500, detail="Retriever not initialized.")
+        
+    try:
+        tables = retriever.retrieve(req.question, top_k=settings.TOP_K_RETRIEVAL)
+        return RetrieveResponse(tables=tables)
+    except Exception as e:
+        logger.error(f"Retrieval error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/execute", response_model=ExecuteResponse)
+def execute_pandas_code(req: ExecuteRequest, executor = Depends(get_pandas_executor)):
+    """Thực thi trực tiếp code Pandas do LLM sinh ra."""
+    if not executor:
+        raise HTTPException(status_code=500, detail="Executor not initialized.")
+        
+    success, output = executor.execute(req.code)
+    
+    if success:
+        return ExecuteResponse(success=True, result=output)
+    else:
+        return ExecuteResponse(success=False, error=output)
 
 @router.post("/chat", response_model=ChatResponse)
 def chat_end_to_end(

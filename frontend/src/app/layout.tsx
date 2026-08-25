@@ -1,9 +1,20 @@
 import type { Metadata } from "next";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { QueryProvider } from "@/providers/query-provider";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Toaster } from "sonner";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   title: "NewGenAI Financial Agent",
@@ -19,17 +30,17 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className="antialiased font-sans h-screen w-screen overflow-hidden"
+        className={`${spaceGrotesk.variable} ${jetBrainsMono.variable} antialiased font-sans h-screen w-screen overflow-hidden`}
       >
         <QueryProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
-            forcedTheme="dark"
+            defaultTheme="system"
+            enableSystem
             disableTransitionOnChange
           >
             <AppLayout>{children}</AppLayout>
-            <Toaster richColors position="top-right" theme="dark" />
+            <Toaster richColors position="top-right" theme="system" />
           </ThemeProvider>
         </QueryProvider>
       </body>

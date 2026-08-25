@@ -22,6 +22,17 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=settings.APP_NAME, lifespan=lifespan)
 app.add_middleware(
-    CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+# Gắn toàn bộ Routers
 app.include_router(router, prefix="/api")
+
+if __name__ == "__main__":
+    import uvicorn
+    # Chạy Server ở Port 8000
+    uvicorn.run("src.main:app", host="0.0.0.0", port=8000, reload=True)
