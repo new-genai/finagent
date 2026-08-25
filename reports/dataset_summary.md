@@ -3,11 +3,11 @@
 ## Tổng quan
 - **Tổng số công ty:** 100
 - **Tổng số năm:** 11
-- **Tổng số báo cáo:** 1973
-- **Tổng số file TXT:** 1973
+- **Tổng số báo cáo:** 1974
+- **Tổng số file TXT:** 1974
 - **Tổng số file JSON:** 0
-- **Tổng số thư mục:** 3099
-- **Số dòng trung bình/báo cáo:** 1896
+- **Tổng số thư mục:** 6169
+- **Số dòng trung bình/báo cáo:** 1895
 
 ## Thống kê
 
@@ -106,7 +106,7 @@
 - **VIC**: 22 báo cáo
 - **VIF**: 22 báo cáo
 - **VJC**: 21 báo cáo
-- **VNM**: 22 báo cáo
+- **VNM**: 23 báo cáo
 - **VPB**: 18 báo cáo
 - **VPI**: 20 báo cáo
 - **VRE**: 21 báo cáo
@@ -122,16 +122,16 @@
 - **2020**: 196 báo cáo
 - **2021**: 193 báo cáo
 - **2022**: 201 báo cáo
-- **2023**: 195 báo cáo
+- **2023**: 196 báo cáo
 - **2024**: 200 báo cáo
 - **2025**: 200 báo cáo
 
 ## Ví dụ báo cáo
-- File: `OCB_financial_statements_2022_consolidated_2_extracted.txt` | Công ty: OCB | Năm: 2022 | Size: 251771 bytes | Lines: 2302
-- File: `MPC_financial_statements_2019_separate_1_extracted.txt` | Công ty: MPC | Năm: 2019 | Size: 63613 bytes | Lines: 598
-- File: `POW_financial_statements_2025_separate_extracted.txt` | Công ty: POW | Năm: 2025 | Size: 167044 bytes | Lines: 1428
-- File: `VSF_financial_statements_2019_consolidated_extracted.txt` | Công ty: VSF | Năm: 2019 | Size: 205814 bytes | Lines: 1765
-- File: `VGC_financial_statements_2015_consolidated_extracted.txt` | Công ty: VGC | Năm: 2015 | Size: 233779 bytes | Lines: 1858
+- File: `DTK_financial_statements_2023_consolidated_extracted.txt` | Công ty: DTK | Năm: 2023 | Size: 179764 bytes | Lines: 1465
+- File: `SSH_2024_financial_statement_explanations_1_extracted.txt` | Công ty: SSH | Năm: 2024 | Size: 13226 bytes | Lines: 286
+- File: `FOX_financial_statements_2017_separate_extracted.txt` | Công ty: FOX | Năm: 2017 | Size: 112980 bytes | Lines: 950
+- File: `MWG_financial_statements_2019_consolidated_extracted.txt` | Công ty: MWG | Năm: 2019 | Size: 111490 bytes | Lines: 1160
+- File: `MSB_financial_statements_2016_separate_extracted.txt` | Công ty: MSB | Năm: 2016 | Size: 214089 bytes | Lines: 2121
 
 ## Ví dụ câu hỏi
 *Không tìm thấy file test.json hoặc file không đúng định dạng.*

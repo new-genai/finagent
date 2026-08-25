@@ -1,27 +1,52 @@
-# Dependency injection module for FastAPI
-# In MVP, we keep global references here after initialization in main.py
+import logging
+from functools import lru_cache
+from pathlib import Path
 
-global_retriever = None
-global_executor = None
-global_llm = None
-global_generator = None
-global_db = None
-global_table_loader = None
+from src.core.config import settings
+from src.retrieval.bm25_retriever import BM25Retriever
+from src.llm.context_builder import ContextBuilder
+from src.llm.prompt_builder import PromptBuilder
+from src.llm.service import LLMService
+from src.execution.duckdb_service import DuckDBService
+from src.execution.table_loader import TableLoader
+from src.execution.pandas_executor import PandasExecutor
 
-def get_hybrid_retriever():
-    return global_retriever
+logger = logging.getLogger(__name__)
 
-def get_pandas_executor():
-    return global_executor
+@lru_cache()
+def get_db_service() -> DuckDBService:
+    return DuckDBService(db_path=settings.DB_PATH)
 
-def get_llm_service():
-    return global_llm
+@lru_cache()
+def get_table_loader() -> TableLoader:
+    return TableLoader(db_service=get_db_service())
 
-def get_submission_generator():
-    return global_generator
+@lru_cache()
+def get_pandas_executor() -> PandasExecutor:
+    return PandasExecutor(timeout_sec=settings.PANDAS_EXECUTION_TIMEOUT_SEC)
 
-def get_db_service():
-    return global_db
+@lru_cache()
+def get_hybrid_retriever() -> BM25Retriever:
+    """Nạp trực tiếp BM25 index cục bộ, không gọi qua cổng 8001."""
+    index_file = settings.INDEX_DIR / "bm25.pkl"
+    retriever = BM25Retriever()
+    if index_file.exists():
+        retriever.load(index_file)
+    else:
+        logger.warning(f"Chưa tìm thấy index tại {index_file}. Hãy chạy scripts/build_index.py")
+    return retriever
 
-def get_table_loader():
-    return global_table_loader
+@lru_cache()
+def get_prompt_builder() -> PromptBuilder:
+    return PromptBuilder()
+
+@lru_cache()
+def get_context_builder() -> ContextBuilder:
+    return ContextBuilder(table_loader=get_table_loader())
+
+@lru_cache()
+def get_llm_service() -> LLMService:
+    return LLMService(
+        prompt_builder=get_prompt_builder(),
+        context_builder=get_context_builder()
+    )

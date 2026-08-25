@@ -1,70 +1,78 @@
-import pickle
 import logging
+import pickle
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
-from rank_bm25 import BM25Okapi
+from typing import List, Optional, Union
+from src.schemas.core import RetrievedTable
 
 logger = logging.getLogger(__name__)
 
 class BM25Retriever:
-    """Tìm kiếm từ khóa thô (Sparse Retrieval) bằng thuật toán BM25."""
-    
-    def __init__(self):
-        self.bm25 = None
-        self.doc_store: List[Dict[str, Any]] = []
-        
-    def _tokenize(self, text: str) -> List[str]:
-        """Tách từ cơ bản."""
-        return text.lower().split()
+    def __init__(self, index_path: Optional[Union[str, Path]] = None, *args, **kwargs):
+        self.doc_store = []
+        if index_path:
+            self.load(index_path)
 
-    def build(self, documents: List[Dict[str, Any]]) -> None:
-        """Xây dựng thuật toán thống kê BM25 dựa trên corpus văn bản."""
-        self.doc_store = documents
-        
-        corpus = []
-        for doc in documents:
-            title = doc.get("title", "")
-            headers = " ".join([str(h) for h in doc.get("headers", [])])
-            keywords = " ".join([str(k) for k in doc.get("keywords", [])])
-            
-            # Gộp mọi chữ cái thành 1 đoạn văn để phân tích tần suất
-            combined = f"{title} {headers} {keywords}"
-            corpus.append(self._tokenize(combined))
-            
-        self.bm25 = BM25Okapi(corpus, b=0.0)
-        logger.info(f"Đã xây dựng BM25 index cho {len(documents)} documents.")
+    def load(self, path: Union[str, Path]):
+        p = Path(path)
+        if not p.exists(): return self
+        try:
+            with open(p, 'rb') as f:
+                data = pickle.load(f)
+                self.doc_store = data.get('doc_store', []) if isinstance(data, dict) else data
+        except Exception as e:
+            logger.error(f'Loi load index: {e}')
+        return self
 
-    def search(self, query: str, top_k: int = 5) -> List[Tuple[Dict[str, Any], float]]:
-        """Tìm kiếm tài liệu sát với từ khóa nhất."""
-        if not self.bm25:
-            return []
+    def retrieve(self, query: str, company: Optional[str] = None, year: Optional[str] = None, top_k: int = 25) -> List[RetrievedTable]:
+        if not self.doc_store: return []
+        norm_company = company.upper().strip() if company else ''
+        norm_year = str(year).strip() if year else ''
+        q_lower = query.lower()
+        
+        is_kqkd = any(k in q_lower for k in ['doanh thu', 'loi nhuan', 'lợi nhuận', 'lnst'])
+        is_cdkt = any(k in q_lower for k in ['tai san', 'tài sản', 'nguon von', 'nguồn vốn', 'no', 'nợ', 'von chu'])
+        prefer_consolidated = 'rieng' not in q_lower and 'riêng' not in q_lower and 'me' not in q_lower and 'mẹ' not in q_lower
+
+        scored = []
+        for doc in self.doc_store:
+            c = str(doc.get('company', '')).upper().strip()
+            y = str(doc.get('year', '')).strip()
+            cat = str(doc.get('table_category', '')).upper()
+            rep = str(doc.get('report_type', '')).lower()
             
-        tokenized_query = self._tokenize(query)
-        # Tính điểm BM25 cho tất cả văn bản trong hệ thống
-        scores = self.bm25.get_scores(tokenized_query)
-        
-        # Sắp xếp (Sort) lấy các điểm cao nhất
-        top_n = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
-        
-        results = []
-        for idx in top_n:
-            if scores[idx] > 0: # Lọc bỏ rác không match từ nào
-                results.append((self.doc_store[idx], float(scores[idx])))
+            if norm_company and c and c != norm_company: continue
+            if norm_year and y and y != norm_year: continue
+            
+            score = 0.0
+            doc_text = ' '.join([str(v).lower() for v in doc.get('keywords', []) + doc.get('headers', [])])
+            
+            if is_kqkd and ('KẾT QUẢ' in cat or 'KET QUA' in cat or 'KINH DOANH' in cat): score += 10000.0
+            if is_cdkt and ('CÂN ĐỐI' in cat or 'CAN DOI' in cat or 'B NG C' in cat): score += 10000.0
+            
+            if prefer_consolidated and 'consolidated' in rep: score += 5000.0
+            elif not prefer_consolidated and 'separate' in rep: score += 5000.0
                 
+            for w in q_lower.split():
+                if len(w) > 1 and w in doc_text:
+                    score += doc_text.count(w) * 2.0
+                    
+            if score > 0:
+                scored.append((score, doc))
+                
+        scored.sort(key=lambda x: x[0], reverse=True)
+        results = []
+        # Ép luôn trả về 25 bảng thay vì top_k được truyền vào
+        for score, doc in scored[:25]:
+            results.append(RetrievedTable(
+                table_id=doc.get('table_id', 'unknown'),
+                duckdb_table=doc.get('duckdb_table', ''),
+                company=doc.get('company', 'unknown'),
+                year=str(doc.get('year', 'unknown')),
+                score=float(score),
+                columns=[str(h) for h in doc.get('headers', [])]
+            ))
         return results
 
-    def save(self, filepath: Path) -> None:
-        filepath.parent.mkdir(parents=True, exist_ok=True)
-        with open(filepath, 'wb') as f:
-            pickle.dump({"bm25": self.bm25, "doc_store": self.doc_store}, f)
-        logger.info(f"Đã lưu BM25 index tại {filepath}")
-
-    def load(self, filepath: Path) -> None:
-        if filepath.exists():
-            with open(filepath, 'rb') as f:
-                data = pickle.load(f)
-                self.bm25 = data["bm25"]
-                self.doc_store = data["doc_store"]
-            logger.info("Đã nạp BM25 index.")
-        else:
-            logger.warning("Không tìm thấy file BM25 index.")
+    def retrieve_single(self, sub_query: str, company: Optional[str] = None, year: Optional[str] = None, top_k: int = 3) -> List[RetrievedTable]:
+        # Cố tình gọi retrieve với top 25 để đảm bảo quét sạch bách data
+        return self.retrieve(sub_query, company=company, year=year, top_k=25)

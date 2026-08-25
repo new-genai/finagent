@@ -1,4 +1,42 @@
-import logging
+import os
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+
+# 1. CẬP NHẬT SCHEMA API: Thêm pandas_query và evidence để khớp định dạng nộp bài
+schema_code = """from pydantic import BaseModel, ConfigDict, Field
+from typing import List, Dict, Any, Optional
+
+class RetrievedTable(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+    table_id: str
+    duckdb_table: str = ""
+    company: str
+    year: str
+    score: float = 0.0
+    columns: List[str] = Field(default_factory=list)
+    dataframe: Any = None
+
+class ChatRequest(BaseModel):
+    question: str = Field(..., description="The user's question.")
+    history: Optional[List[Dict[str, Any]]] = Field(default=None)
+
+class Evidence(BaseModel):
+    variable: str
+    csv_path: str
+
+class ChatResponse(BaseModel):
+    answer: str
+    thought_process: Optional[str] = None
+    relevant_docs: List[str] = []
+    relevant_tables: List[str] = []
+    evidence: List[Evidence] = []
+    pandas_query: str = ""
+"""
+(ROOT / "src" / "schemas" / "api.py").write_text(schema_code, encoding="utf-8")
+
+# 2. XÓA BỎ INTERCEPTOR TRONG ROUTER VÀ TRẢ VỀ ĐÚNG CHUẨN JSON CỦA BTC
+router_code = """import logging
 from typing import List, Dict, Any
 from fastapi import APIRouter, HTTPException, Depends
 from simpleeval import simple_eval
@@ -40,7 +78,7 @@ def chat_end_to_end(
             steps = [ExecutionStep(step_id="step_1", metric_intent=req.question, sub_queries=plan.sub_queries if plan.sub_queries else [req.question])]
             
         def process_step(step):
-            step_logs = [f"\n>> ĐANG CHẠY {step.step_id.upper()}: Tìm '{step.metric_intent}'"]
+            step_logs = [f"\\n>> ĐANG CHẠY {step.step_id.upper()}: Tìm '{step.metric_intent}'"]
             sq_list = step.sub_queries if step.sub_queries else [step.metric_intent]
             selected_tables = []
             seen_table_ids = set()
@@ -95,7 +133,7 @@ def chat_end_to_end(
                 global_state[s_id] = val
                 trace_logs.extend(s_logs)
                 all_evidence.extend(s_ev)
-                final_pandas_query += f"\n# --- {s_id} ---\n{s_code}\n"
+                final_pandas_query += f"\\n# --- {s_id} ---\\n{s_code}\\n"
 
         final_result = global_state.get("step_1") if not plan.is_complex else None
         if plan.is_complex and plan.final_formula and all(v is not None for v in global_state.values()):
@@ -103,7 +141,7 @@ def chat_end_to_end(
                 final_result = simple_eval(plan.final_formula, names=global_state)
             except: pass
                 
-        combined_thought = "=== TRACE DAG ENGINE ===\n" + "\n".join(trace_logs)
+        combined_thought = "=== TRACE DAG ENGINE ===\\n" + "\\n".join(trace_logs)
         ans = llm.generate_natural_response(req.question, str(final_result), req.history) if final_result is not None else llm.generate_cot_fallback(req.question, "")
         
         return ChatResponse(
@@ -118,3 +156,73 @@ def chat_end_to_end(
     except Exception as e:
         logger.error(f"Lỗi Chat Pipeline: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+"""
+(ROOT / "src" / "api" / "router.py").write_text(router_code, encoding="utf-8")
+
+# 3. TẠO SCRIPT XUẤT SUBMISSION THEO ĐÚNG CHUẨN BTC
+submission_code = """import json
+import zipfile
+import shutil
+from pathlib import Path
+import requests
+
+API_URL = "http://127.0.0.1:8000/api/chat"
+ROOT_DIR = Path(__file__).resolve().parent
+
+def build_submission():
+    print("🚀 Bắt đầu đóng gói Submission...")
+    
+    # 1. Đọc bộ test từ file (Giả định bạn tạo file test_questions.json chứa câu hỏi)
+    # Vì tôi chưa có file test của bạn, tôi tạo mock data để demo:
+    test_data = [{"id": 1, "question": "Doanh thu năm 2022 của Vinamilk (VNM) là bao nhiêu?"}]
+    
+    out_dir = ROOT_DIR / "submission_temp"
+    data_dir = out_dir / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    
+    submission_json = []
+    
+    for item in test_data:
+        q_id = item["id"]
+        q_text = item["question"]
+        print(f"Đang xử lý câu {q_id}: {q_text}")
+        
+        res = requests.post(API_URL, json={"question": q_text}).json()
+        
+        # Bóc tách số float từ câu trả lời tự nhiên
+        import re
+        nums = re.findall(r"[-+]?(?:\d*\.\d+|\d+)", res.get('answer', '0').replace(',', '.'))
+        ans_float = float(nums[0]) if nums else 0.0
+        
+        sub_item = {
+            "id": q_id,
+            "question": q_text,
+            "answer": ans_float,
+            "relevant_docs": res.get("relevant_docs", []),
+            "relevant_tables": res.get("relevant_tables", []),
+            "evidence": res.get("evidence", []),
+            "pandas_query": res.get("pandas_query", "")
+        }
+        submission_json.append(sub_item)
+        
+        # Copy các file CSV vào thư mục data/ của bài nộp
+        for ev in res.get("evidence", []):
+            csv_name = ev["csv_path"].split("/")[-1]
+            src_csv = ROOT_DIR / "data" / "processed" / "csv" / csv_name
+            if src_csv.exists():
+                shutil.copy(src_csv, data_dir / csv_name)
+                
+    # Lưu file submission.json
+    with open(out_dir / "submission.json", "w", encoding="utf-8") as f:
+        json.dump(submission_json, f, ensure_ascii=False, indent=2)
+        
+    # Nén thành ZIP
+    shutil.make_archive(ROOT_DIR / "submission", 'zip', out_dir)
+    print("✅ Đã tạo xong file submission.zip! Bạn có thể nộp file này lên Leaderboard.")
+
+if __name__ == "__main__":
+    build_submission()
+"""
+(ROOT / "generate_submission.py").write_text(submission_code, encoding="utf-8")
+
+print("✅ ĐÃ CHUẨN HÓA HỆ THỐNG ĐỂ NỘP BÀI THỰC TẾ!")
