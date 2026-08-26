@@ -1,0 +1,116 @@
+--- Table: 77a78cda-ad0b-4e14-afcd-3d3739f23432 ---
+0    Phải thu cổ tức/phân phối lợi nhuận được chia ...
+
+--- Table: FPT_2023_page1_table18 ---
+0    Phải thu cổ tức/phân phối lợi nhuận được chia ...
+
+--- Table: d3117672-1e6a-4690-a264-cd5dcc3ad4b9 ---
+1                Thuế TNDN
+5                Thuế GTGT
+6    Thuế thu nhập cá nhân
+
+--- Table: FPT_2023_page1_table23 ---
+1                Thuế TNDN
+5                Thuế GTGT
+6    Thuế thu nhập cá nhân
+
+--- Table: 32f3ab43-8c88-4667-8348-81c9e477ab6f ---
+2    Lợi nhuận thuần trong năm
+7    Lợi nhuận thuần trong năm
+
+--- Table: FPT_2023_page1_table32 ---
+2    Lợi nhuận thuần trong năm
+7    Lợi nhuận thuần trong năm
+
+--- Table: 6eb47a49-508d-49b9-b17d-13147951a3e6 ---
+0    Cổ tức, lợi nhuận được chia(Thuyết minh 25(a))
+
+--- Table: FPT_2023_page1_table35 ---
+0    Cổ tức, lợi nhuận được chia(Thuyết minh 25(a))
+
+--- Table: 1089a729-ddb8-425e-8a31-1d321b64ad99 ---
+0             Lợi nhuận kế toán trước thuế Điều chỉnh:
+1                             Thu nhập không chịu thuế
+3                 Lỗ kế toán trước thuế sau điều chỉnh
+4    (Thu nhập)/chi phí thuế TNDN ghi nhận trong bá...
+5                                Thuế TNDN - hiện hành
+6                             Thuế TNDN - hoãn lại (*)
+7                                    Chi phí thuế TNDN
+
+--- Table: FPT_2023_page1_table38 ---
+0             Lợi nhuận kế toán trước thuế Điều chỉnh:
+1                             Thu nhập không chịu thuế
+3                 Lỗ kế toán trước thuế sau điều chỉnh
+4    (Thu nhập)/chi phí thuế TNDN ghi nhận trong bá...
+5                                Thuế TNDN - hiện hành
+6                             Thuế TNDN - hoãn lại (*)
+7                                    Chi phí thuế TNDN
+
+--- Table: 3df4a61f-c216-4a77-8464-9a0b12421c3b ---
+3     Lợi nhuận thuần trong năm
+12    Lợi nhuận thuần trong năm
+
+--- Table: FPT_2023_page1_table49 ---
+3     Lợi nhuận thuần trong năm
+12    Lợi nhuận thuần trong năm
+
+--- Table: 242616d0-8241-43d1-a3e5-9edb284ea62a ---
+2    Lợi nhuận thuần trong năm
+
+--- Table: FPT_2023_page1_table51 ---
+2    Lợi nhuận thuần trong năm
+
+--- Table: 05509030-e8c0-47bd-8e2d-964a23843964 ---
+0    Lợi nhuận thuần phân bổ cho các cổ đông (VND)
+
+--- Table: FPT_2023_page1_table52 ---
+0    Lợi nhuận thuần phân bổ cho các cổ đông (VND)
+
+--- Table: 2fd39d96-5ce4-41b8-a4f3-419302592e95 ---
+1    Lợi nhuận thuần phân bổ cho các cổ đông (VND)
+
+--- Table: FPT_2023_page1_table53 ---
+1    Lợi nhuận thuần phân bổ cho các cổ đông (VND)
+
+--- Table: b9af4f12-f1d3-4d0c-8cea-bd3bf4c4d23e ---
+2    Cổ tức, lợi nhuận được chia
+
+--- Table: FPT_2023_page1_table56 ---
+2    Cổ tức, lợi nhuận được chia
+
+--- Table: bebc94a1-0966-4863-b9b0-ad580ce787f5 ---
+2    Chi phí theo bộ phân (*)Trong đó:- Tổng chi ph...
+
+--- Table: FPT_2023_page1_table64 ---
+2    Chi phí theo bộ phân (*)Trong đó:- Tổng chi ph...
+
+--- Table: fa3a622b-f11d-4f96-8085-ef60851f24f3 ---
+3    Kết quả HĐKD theo bộ phậnLợi nhuận trước thuế ...
+
+--- Table: FPT_2023_page1_table65 ---
+3    Kết quả HĐKD theo bộ phậnLợi nhuận trước thuế ...
+
+--- Table: 92fbd10e-2b33-4b23-a4e5-f38c5d42b20f ---
+0    Phải thu cổ tức/phân phối lợi nhuận được chia ...
+
+--- Table: f4224fd2-c416-41c0-b9c8-54b49cd3ad09 ---
+1                Thuế TNDN
+5                Thuế GTGT
+6    Thuế thu nhập cá nhân
+
+--- Table: a6612ea3-1633-4942-91dd-461790a9bdb6 ---
+2    Lợi nhuận thuần trong năm
+7    Lợi nhuận thuần trong năm
+
+--- Table: db5d642a-1480-4113-89a9-1d587446d420 ---
+0    Cổ tức, lợi nhuận được chia(Thuyết minh 25(a))
+
+--- Table: 371bcafe-a7e9-4fe5-a0c0-829b5a8f191d ---
+0             Lợi nhuận kế toán trước thuế Điều chỉnh:
+1                             Thu nhập không chịu thuế
+3                 Lỗ kế toán trước thuế sau điều chỉnh
+4    (Thu nhập)/chi phí thuế TNDN ghi nhận trong bá...
+5                                Thuế TNDN - hiện hành
+6                             Thuế TNDN - hoãn lại (*)
+7                                    Chi phí thuế TNDN
+

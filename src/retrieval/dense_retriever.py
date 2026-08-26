@@ -1,43 +1,17 @@
 import logging
-import pickle
-from pathlib import Path
 from typing import List, Optional
 import numpy as np
-import faiss
-import torch
-from sentence_transformers import SentenceTransformer
+
 from src.schemas.core import RetrievedTable
+from src.database.supabase_service import SupabaseService
+from src.embedding.service import EmbeddingService
 
 logger = logging.getLogger(__name__)
 
 class DenseRetriever:
-    def __init__(
-        self,
-        index_path: str,
-        doc_store_path: str,
-        model_name: str = "BAAI/bge-small-en-v1.5"
-    ):
-        self.index = None
-        self.doc_store = []
-        self.embedder = None
-        
-        idx_p = Path(index_path)
-        doc_p = Path(doc_store_path)
-
-        if idx_p.exists() and doc_p.exists():
-            logger.info("Đang nạp FAISS index...")
-            self.index = faiss.read_index(str(idx_p))
-            
-            logger.info("Đang nạp doc_store...")
-            with open(doc_p, "rb") as f:
-                data = pickle.load(f)
-                self.doc_store = data.get("doc_store", []) if isinstance(data, dict) else data
-            
-            device = "cuda" if torch.cuda.is_available() else "cpu"
-            logger.info(f"Nạp mô hình Embedding: {model_name} trên thiết bị [{device.upper()}]...")
-            self.embedder = SentenceTransformer(model_name, device=device)
-        else:
-            logger.warning("Không tìm thấy faiss.index hoặc doc_store.pkl. Hãy kiểm tra đường dẫn!")
+    def __init__(self, db_service: SupabaseService, embedding_service: EmbeddingService):
+        self.db = db_service
+        self.embedder = embedding_service
 
     def retrieve(
         self,
@@ -46,46 +20,38 @@ class DenseRetriever:
         year: Optional[str] = None,
         top_k: int = 15
     ) -> List[RetrievedTable]:
-        if not self.index or not self.embedder or len(self.doc_store) == 0:
+        if not self.db.client or not self.embedder:
             return []
 
-        with torch.no_grad():
-            query_vector = self.embedder.encode([query], normalize_embeddings=True)
-            query_vector = np.array(query_vector).astype("float32")
-
-        # Quét sâu 1500 vectors để đảm bảo không lọc mất bảng mục tiêu
-        search_k = min(1500, len(self.doc_store))
-        distances, indices = self.index.search(query_vector, search_k)
-
-        norm_company = company.upper().strip() if company else ""
-        norm_year = str(year).strip() if year else ""
-
-        results = []
-        for dist, idx in zip(distances[0], indices[0]):
-            if idx == -1 or idx >= len(self.doc_store):
-                continue
+        try:
+            # Sinh vector embedding cho câu hỏi bằng mô hình BGE-m3
+            query_vector = self.embedder.embed_text(query).tolist()
             
-            doc = self.doc_store[idx]
-            doc_comp = str(doc.get("company", "")).upper().strip()
-            doc_yr = str(doc.get("year", "")).strip()
-
-            if norm_company and doc_comp and doc_comp != norm_company:
-                continue
-            if norm_year and doc_yr and doc_yr != norm_year:
-                continue
-
-            results.append(
-                RetrievedTable(
-                    table_id=doc.get("table_id", "unknown"),
-                    duckdb_table=doc.get("duckdb_table", ""),
-                    company=doc.get("company", "unknown"),
-                    year=str(doc.get("year", "unknown")),
-                    score=float(dist),
-                    columns=[str(h) for h in doc.get("headers", [])]
-                )
-            )
-
-            if len(results) >= top_k:
-                break
-
-        return results
+            # Gọi RPC match_documents trên Supabase
+            params = {
+                "query_embedding": query_vector,
+                "match_threshold": -1.0, # Ngưỡng similarity (BGE-m3 query vs long doc có thể âm)
+                "match_count": top_k,
+                "p_company": company.upper().strip() if company else None,
+                "p_year": str(year).strip() if year else None
+            }
+            
+            matched_docs = self.db.query_rpc("match_documents", params)
+            
+            results = []
+            if matched_docs:
+                for doc in matched_docs:
+                    results.append(
+                        RetrievedTable(
+                            table_id=doc.get("table_id", "unknown"),
+                            duckdb_table=doc.get("duckdb_table", "unknown"),
+                            company=doc.get("company", "unknown"),
+                            year=str(doc.get("year", "unknown")),
+                            score=float(doc.get("similarity", 0.0)),
+                            columns=doc.get("headers", [])
+                        )
+                    )
+            return results
+        except Exception as e:
+            logger.error(f"Supabase dense retrieval error: {e}")
+            return []

@@ -1,0 +1,362 @@
+(lỗ)/lợi nhuận khác
+-
+- chia cổ tức
+- cổ phần phát hành thêm
+- hao mòn trong năm
+- lợi nhuận thuần trong năm
+- mua trong năm
+- tăng do sáp nhập công ty con
+01
+02
+03
+04
+05
+06
+08
+09
+1
+10
+100
+11
+110
+111
+112
+12
+130
+131
+132
+135
+136
+137
+14
+140
+141
+15
+15.2
+150
+151
+152
+153
+155
+2
+2.613.600.000.000
+20
+200
+2013
+2014
+2015
+21
+210
+215
+216
+22
+220
+221
+222
+223
+227
+228
+229
+23
+230
+231
+232
+24
+240
+242
+25
+250
+251
+252
+26
+260
+261
+268
+27
+270
+3
+3.984.356.169
+30
+300
+31
+310
+311
+312
+313
+314
+315
+319
+32
+320
+321
+33
+330
+337
+338
+34
+350.000.000.000
+36
+4
+4.339.941.666.667
+40
+400
+410
+411
+411a
+411b
+412
+421
+421a
+421b
+440
+5
+50
+51
+6
+60
+7
+70
+8
+9
+bà hoàng thị mỹ hạnh
+bà mai hương nội
+bà phạm ngọc thoa
+bà phạm thu thủy
+bà vũ tuyết hằng
+bà đình hồng minh
+bàng cân đối kế toán riêng
+báo cáo của ban giám đốc
+báo cáo kiểm toán độc lập
+báo cáo kết quả hoạt động kinh doanh riêng
+báo cáo lưu chuyển tiền tệ riêng
+bên liên quan
+bảng cần đồi kếtoán riêng
+bất động sản để bán đang xây dựng
+bất động sản để bán đã xây dựng hoàn thành
+chi phí bán hàng
+chi phí bán hàng khác
+chi phí bán hàng liên quan đến các căn hộ chưa bàn giao
+chi phí bồi thường (*)
+chi phí công cụ, dụng cụ
+chi phí dịch vụ mua ngoài
+chi phí dự phòng nợ phải thu khó đòi
+chi phí dự phòng phải thu trích lập chưa được khấu trừ năm nay
+chi phí hoạt động kinh doanh trực tiếp của các bất động sản đầu tư tạo thu nhập cho thuê trong năm
+chi phí khác
+chi phí khác (không gồm chi phí tài chính)
+chi phí không được khấu trừ thuế
+chi phí khấu hao và hao mòn
+chi phí lãi vay trả trước cho các bên liên quan (thuyết minh số 29)
+chi phí nhân công
+chi phí phải trả khác
+chi phí phải trả(thuyết minh số 18)
+chi phí quản lý căn hộ đã bàn giao trích trước
+chi phí quản lý doanh nghiệp
+chi phí quản lý doanh nghiệp khác
+chi phí thu xếp, phát hành các khoản vay và nợ
+chi phí thuế tndn
+chi phí thuế tndn hiện hành
+chi phí trả trước dài hạn khác
+chi phí trả trước ngắn hạn khác
+chi phí trả trước ngắn hạn(thuyết minh số 9)
+chi phí tài chính khác
+chi phí tư vấn, hoa hồng môi giới và giao dịch qua sàn
+chi phí xây dựng trích trước
+chi phí xây dựng và phát triển bắt động sản
+chi phí đầu tư các dự án
+chi tiết các khoản phải thu ngắn hạn từ khách hàng chiếm trên 10% tổng phải thu
+chi tiết các khoản phải trả dài hạn khác chiếm trên 10% tổng phải trả
+cho năm tài chính kết thúc ngày 31 tháng 12 năm 2015:
+credit suisse
+credit suisse (ii)
+credit suisse ag, singapore branch
+credit suïsse
+các bên liên quan khác
+các bên liên quankhác
+các dự án khác
+các khoản giảm trừ doanh thu
+các khoản phải thu khác
+các khoản phải trả, phải nộp khác
+các khoản tương đương tiền
+các khoản điều chỉnh giảm:
+các khoản điều chỉnh tăng:
+công ty an phong
+công ty bđs hải phòng
+công ty bđs viettronics
+công ty cổ phần bsc việt nam
+công ty cổ phần kinh doanh và quản lý bds vinhomes ("công ty quản lý bds vinhomes")
+công ty cổ phần phát triển đốthị nam hà nội ("công ty namhà nội ")(iv)
+công ty cổ phần vinpearlland(iii)
+công ty cổ phần đại dương thắng long
+công ty cổ phần đầu tư vàphát triển địa ốc thành phốhoàng gia
+công ty metropolis
+công ty nam hà nội
+công ty newcosc
+công ty ngôi sao xanh
+công ty quản lý bds vinhomes
+công ty riverview đà nẵng
+công ty starbowl
+công ty suối hoa
+công ty tnhh dịch vụ bảo vệ vincom
+công ty tnhh kinh doanh bất động sản vinhomes 2 ("công ty vinhomes 2")
+công ty tnhh mtv thương mại đầu tư và phát triển thời đại
+công ty tnhh mtv đầu tư và phát triển bất đông sản hải phòng ("công ty bđs hải phòng")
+công ty tnhh quản lý xây dựng vincom 1 ("công ty xây dựng vincom 1")
+công ty tnhh vincom center bà triệu
+công ty tnhh vincom center hạ long ("công ty vincom center hạ long")
+công ty tnhh vincom mega mall times city
+công ty tân liên phát
+công ty vin tây
+công ty vincom center hạ long
+công ty vincom retail miền bắc
+công ty vincom retail miền nam
+công ty vincommerce
+công ty vincomretail miền bắc
+công ty vincomretail miền nam
+công ty vinhomes 2
+công ty vinmec
+công ty xây dựng vincom 1
+công ty xây dựngvincom 1
+cổ phiếu phổ thông
+cổ phiếu ưu đãi
+cổ tức được chia
+cổ tức, lợi nhuận đã chia cho cổ đông nằm cổ phiếu ưu đãi
+doanh thu cho thuê bất động sản đầu tư và cung cấp các dịch vụ liên quan
+doanh thu chuyển nhượng bất động sản
+doanh thu cung cấp dịch vụ khác
+doanh thu cung cấp dịch vụ quản lý
+doanh thu thuần
+doanh thu tài chính khác
+doanh thu đối với các bên khác
+doanh thu đối với các bên liên quan
+dài hạn:
+dự phòng phải thu ngắn hạn khó đòi
+dự án phần mềm sap
+dự án vincom plaza hậu giang
+dự án vincom plaza trà vinh
+dự án vincom plaza vĩnh long
+giá gốc
+giá trị
+giá trị còn lại:
+giá trị còn lại:số dư đầu năm
+giá trị hao mòn lũy kế:
+giá trị hao mònlũy kế:số dư đầu nămkhấu hao trongnăm
+giá vốn cho thuê bất động sản đầu tư và cung cấp các dịch vụ liên quan
+giá vốn chuyển nhượng bất động sản
+giá vốn cung cấp dịch vụ khác
+giá vốn cung cấp dịch vụ quản lý
+lãi cho vay và đặt cọc
+lãi phải thu từ các khoản tiền gửi ngân hàng, đặt cọc và phải thu từ cho vay
+lãi tiền gửi
+lãi tiền vay và lãi trái phiếu
+lãi trái phiếu và lãi vay phải trả
+lãi từ thanh lý các khoản đầu tư
+lương và thường
+lỗ chênh lệch tỷ giá
+lỗ năm trước chuyển sang
+máy móc, thiết bị
+nguyên giá:
+nguyên giá:số dư đầu nămđiều chính doquyết toán hợpđồng
+người mua trả tiền trước theo các hợp đồng chuyển nhượng bắt động sản
+người mua trả trước khác
+ngắn hạn:
+nhà cửa, vật kiến trúc
+nhận đặt cọc cho mục đích chuyển nhượng bất động sản
+năm nay
+năm trước
+năm trước(trình bày lại)
+phí quản lý thương hiệu
+phó tổng giám đốc
+phải nộp
+phải thu
+phải thu chuyển nhượng bất động sản từ một đối tác doanh nghiệp
+phải thu chuyển nhượng khoản đầu tư từ một đối tác doanh nghiệp
+phải thu các khoản chỉ hộ
+phải thu khoản đặt cọc mua cổ phần
+phải thu khoản đặt cọc từ hợp đồng hợp tác đầu tư (*)
+phải thu khác từ các bên khác
+phải thu khác từ các bên liên quan(thuyết minh số 29)
+phải thu khách hàng (thuyết minh số 5)
+phải thu lại tiền đã chuyển để góp vốn vào công ty con do không còn kế hoạch tăng vốn
+phải thu ngắn hạn khác(thuyết minh số 6)
+phải thu ngắn hạn từ bên liên quan(thuyết minh số 29)
+phải thu ngắn hạn từ khách hàng
+phải thu từ cho thuê bất động sản đầu tư và cung cấp dịch vụ liên quan
+phải thu từ chuyển nhượng bất động sản
+phải thu từ chuyển nhượng khoản đầu tư
+phải thu từ cung cấp dịch vụ quản lý
+phải trả cho các bên khác
+phải trả cho các bên liên quan (thuyết minh số 29)
+phải trả cho người bán
+phải trả công ty vincom retail miền nam
+phải trả khác
+phải trả khác cho các bên liên quan(thuyết minh số 29)
+phải trả người bán(thuyết minh số 16.1)
+phải trả ngắn hạn cho các bên khác
+phải trả ngắn hạn khác (thuyết minh số 19)
+phải trả ngắn hạn khác cho các bên liên quan (thuyết minh số 29)
+phải trả tiền mua cổ phần trong công ty con từ một đối tác cá nhân
+phải trả đối tượng khác
+phần mềm máy tính
+quỹ bảo trì
+số cuối năm
+số dư cuối năm
+số dư đầu năm
+số lượng cổ phiếu
+số lượng cổ phiếu đang lưu hành
+số lượng cổ phiếu đăng ký và đã phát hành
+số đầu năm
+thu nhập khác
+thu nhập từ cho thuê bất động sản đầu tư
+thu, chi hộ phải trả
+thuyết minh báo cáo tài chính riêng
+thuế giá trị gia tăng
+thuế thu nhập cá nhân
+thuế thu nhập doanh nghiệp (thuyết minh số 28)
+thuế thu nhập doanh nghiệp nộp thừa
+thuế thu nhập doanh nghiệp tạm tính
+thuế tndn theo thuế suất 20% áp dụng cho công ty (năm 2015: 22%)
+thông tin chung
+tiền gửi ngân hàng
+tiền mặt
+tiền quản lý tập trung phải trả các công ty con
+tiền thu từ các hợp đồng đặt cọc liên quan đến các dự án bất động sản
+tiền thuê và tiền sử dụng đất
+tiền thuê đất trả trước
+trong đó:
+trái phiếu doanh nghiệp (ii)
+trên 1-5 năm
+trên 5 năm
+tài sân ngắn hạn khác
+tài sản ngắn hạn và dài hạn khác(thuyết minh số 10)
+tên công ty
+tập đoàn vingroup - công ty cp
+tập đoàn vingroup -công ty cp
+tập đoàn vingroup -công ty cp (i)
+tập đoàn vingroup- công ty cp
+tổng cộng
+tổng doanh thu
+tổng lợi nhuận kế toán trước thuế
+tổng số
+vay chuyển đổi từ các cổ đông (i) (thuyết minh số 29)
+vay ngắn hạn từ bên liên quan (thuyết minh số 29)
+vay từ công ty mẹ (thuyết minh số 29)
+vốn góp
+vốn góp tăng trong năm
+vốn đầu tư đã góp của chủ sở hữu
+warburg p ncus
+warburg pincus
+warburg pincus (ii)
+ông jeffrey david perlman
+ông joseph raymond gagnon
+điều chỉnh thuế tndn trong những năm trước
+điều chỉnh thuế tndn trích thiếu trong những năm trước
+đơn vị tính: vnd
+đầu tư vào công ty con đầu tư vào công ty liên kết
+đặt cọc cho các bên khác
+đặt cọc cho các bên liên quan(thuyết minh số 29)
+đặt cọc cho mục đích đầu tư
+đặt cọc cho mục đích đầu tư (i)
+đặt cọc từ khách hàng thuê mặt bằng trung tâm thương mại
+đến 1 năm
+đối tượng nợ

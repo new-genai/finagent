@@ -1,2 +1,2 @@
-from .duckdb_service import DuckDBService
-__all__ = ["DuckDBService"]
+from .supabase_service import SupabaseService
+__all__ = ["SupabaseService"]

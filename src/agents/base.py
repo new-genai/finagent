@@ -16,8 +16,8 @@ class ExecutionStep(BaseModel):
 
 class QueryPlan(BaseModel):
     task_type: TaskType = TaskType.FINANCIAL_METRIC
-    company: Optional[str] = ""
-    year: Optional[Union[str, int]] = ""
+    companies: List[str] = []
+    years: List[str] = []
     sub_queries: List[str] = []
     operation: str = "NONE"
     is_complex: bool = False

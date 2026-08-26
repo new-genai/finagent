@@ -22,5 +22,5 @@ class PandasExecutor:
             exec(code, local_vars, local_vars)
             return True, local_vars.get('result')
         except Exception as e:
-            logger.warning(f"Lỗi thực thi Pandas Sandbox: {e}")
+            logger.warning(f"Lỗi thực thi Pandas Sandbox: {e}\nCODE BỊ LỖI:\n{code}")
             return False, f"ERROR: {str(e)}"

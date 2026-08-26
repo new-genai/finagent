@@ -1,37 +1,58 @@
 "use client"
 
 import React from "react"
-import { FileText, Table2, Database, Play, Download, TerminalSquare } from "lucide-react"
+import { FileText, Table2, Database, Play, Download, TerminalSquare, Construction } from "lucide-react"
 import { AnimatedBeam } from "@/components/ui/animations/AnimatedBeam"
 import { ShineButton } from "@/components/ui/animations/ShineButton"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/providers/language-provider"
 
 export default function ParserPage() {
+  const { lang } = useLanguage()
   return (
-    <div className="flex flex-col gap-8 h-full w-full max-w-5xl mx-auto pt-4 pb-10">
-      <div className="flex items-center justify-between">
+    <div className="relative flex flex-col gap-8 h-full w-full max-w-5xl mx-auto pt-4 pb-10">
+      
+      {/* Coming Soon Overlay */}
+      <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm rounded-xl">
+        <div className="flex flex-col items-center gap-4 p-8 bg-card border border-white/10 rounded-2xl shadow-2xl max-w-md text-center">
+          <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-2">
+            <Construction className="w-8 h-8 text-primary" />
+          </div>
+          <h2 className="text-2xl font-bold text-foreground">{lang === "EN" ? "Backend Integration In Progress" : "Đang tích hợp Backend"}</h2>
+          <p className="text-sm text-muted-foreground">
+            {lang === "EN" 
+              ? "The ETL Pipeline for processing raw PDFs into DuckDB is currently under development. Please check back later." 
+              : "Hệ thống trích xuất ETL xử lý PDF thô vào DuckDB hiện đang được phát triển. Vui lòng quay lại sau."}
+          </p>
+          <Button variant="outline" className="mt-4 border-white/10" onClick={() => window.history.back()}>
+            {lang === "EN" ? "Go Back" : "Quay lại"}
+          </Button>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between opacity-50 pointer-events-none">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Data Pipeline Parser</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">{lang === "EN" ? "Data Pipeline Parser" : "Hệ thống Trích xuất Dữ liệu"}</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Execute the ETL process to transform raw TXT reports into structured DuckDB databases.
+            {lang === "EN" ? "Execute the ETL process to transform raw TXT reports into structured DuckDB databases." : "Thực thi quy trình ETL để chuyển đổi báo cáo TXT thô thành cơ sở dữ liệu DuckDB."}
           </p>
         </div>
         <ShineButton className="h-10 px-6 gap-2 bg-primary">
           <Play className="w-4 h-4" />
-          Run Pipeline
+          {lang === "EN" ? "Run Pipeline" : "Chạy Pipeline"}
         </ShineButton>
       </div>
 
       {/* Pipeline Visualization */}
       <div className="rounded-xl border border-white/5 bg-card/30 p-8 flex flex-col gap-8 relative overflow-hidden">
-        <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">ETL Workflow</h3>
+        <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-2">{lang === "EN" ? "ETL Workflow" : "Luồng ETL"}</h3>
         
         <div className="flex justify-between items-center relative z-10">
           {[
-            { name: "Raw TXT", icon: FileText, status: "completed" },
-            { name: "Splitter", icon: FileText, status: "completed" },
-            { name: "Table Detect", icon: Table2, status: "active" },
-            { name: "Normalize", icon: Table2, status: "pending" },
+            { name: lang === "EN" ? "Raw TXT" : "TXT thô", icon: FileText, status: "completed" },
+            { name: lang === "EN" ? "Splitter" : "Chia nhỏ", icon: FileText, status: "completed" },
+            { name: lang === "EN" ? "Table Detect" : "Nhận diện bảng", icon: Table2, status: "active" },
+            { name: lang === "EN" ? "Normalize" : "Chuẩn hóa", icon: Table2, status: "pending" },
             { name: "DuckDB", icon: Database, status: "pending" },
           ].map((node, i) => (
             <div key={i} className="flex flex-col items-center gap-3 relative z-10 w-24">
@@ -76,12 +97,12 @@ export default function ParserPage() {
 
         {/* Stats Panel */}
         <div className="rounded-xl border border-white/5 bg-card/30 flex flex-col p-6 gap-6">
-          <h3 className="font-semibold text-sm uppercase tracking-wider text-foreground">Execution Stats</h3>
+          <h3 className="font-semibold text-sm uppercase tracking-wider text-foreground">{lang === "EN" ? "Execution Stats" : "Thống kê thực thi"}</h3>
           
           <div className="space-y-4">
             <div>
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-muted-foreground">Overall Progress</span>
+                <span className="text-muted-foreground">{lang === "EN" ? "Overall Progress" : "Tiến độ chung"}</span>
                 <span className="text-primary font-medium">42%</span>
               </div>
               <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
@@ -91,19 +112,19 @@ export default function ParserPage() {
             
             <div className="pt-4 border-t border-white/5 space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Processed Files</span>
+                <span className="text-sm text-muted-foreground">{lang === "EN" ? "Processed Files" : "File đã xử lý"}</span>
                 <span className="text-sm font-medium">1 / 1,245</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Tables Extracted</span>
+                <span className="text-sm text-muted-foreground">{lang === "EN" ? "Tables Extracted" : "Bảng đã xuất"}</span>
                 <span className="text-sm font-medium text-emerald-500">14</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Elapsed Time</span>
+                <span className="text-sm text-muted-foreground">{lang === "EN" ? "Elapsed Time" : "Thời gian đã trôi qua"}</span>
                 <span className="text-sm font-mono">00:01:24</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Est. Remaining</span>
+                <span className="text-sm text-muted-foreground">{lang === "EN" ? "Est. Remaining" : "Ước tính còn lại"}</span>
                 <span className="text-sm font-mono">2h 15m</span>
               </div>
             </div>
@@ -111,15 +132,16 @@ export default function ParserPage() {
           
           <div className="mt-auto pt-4 flex gap-2">
             <Button variant="outline" className="w-full h-9 text-xs border-white/10 hover:bg-white/5">
-              Stop
+              {lang === "EN" ? "Stop" : "Dừng"}
             </Button>
             <Button variant="outline" className="w-full h-9 text-xs border-white/10 hover:bg-white/5">
               <Download className="w-3.5 h-3.5 mr-1.5" />
-              Logs
+              {lang === "EN" ? "Logs" : "Tải log"}
             </Button>
           </div>
         </div>
       </div>
+      
     </div>
   )
 }

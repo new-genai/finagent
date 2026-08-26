@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { PanelLeftClose, Plus, MessageSquare } from "lucide-react"
+import { PanelLeftClose, Plus, MessageSquare, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useChatStore } from "@/store/useChatStore"
 
@@ -10,7 +10,7 @@ interface ChatHistoryPanelProps {
 }
 
 export function ChatHistoryPanel({ onClose }: ChatHistoryPanelProps) {
-  const { sessions, currentSessionId, loadSession, createNewSession } = useChatStore()
+  const { sessions, currentSessionId, loadSession, createNewSession, deleteSession } = useChatStore()
   
   const getSessionDateLabel = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -25,7 +25,7 @@ export function ChatHistoryPanel({ onClose }: ChatHistoryPanelProps) {
   }
 
   return (
-    <div className="flex flex-col h-full w-[260px]">
+    <div className="flex flex-col h-full w-full">
       <div className="h-12 flex items-center justify-between px-2 shrink-0 border-b border-white/5">
         <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground" onClick={onClose}>
           <PanelLeftClose className="w-4 h-4" />
@@ -49,14 +49,27 @@ export function ChatHistoryPanel({ onClose }: ChatHistoryPanelProps) {
                     {dateLabel}
                   </span>
                 ) : null}
-                <Button 
-                  variant="ghost" 
-                  onClick={() => loadSession(session.id)}
-                  className={`w-full justify-start h-9 px-2 text-sm font-normal hover:text-foreground hover:bg-white/5 ${currentSessionId === session.id ? 'bg-white/5 text-foreground' : 'text-muted-foreground'}`}
-                >
-                  <MessageSquare className="w-3.5 h-3.5 mr-2 shrink-0" />
-                  <span className="truncate">{session.title}</span>
-                </Button>
+                <div className={`group/item flex items-center justify-between w-full h-9 rounded-md transition-colors ${currentSessionId === session.id ? 'bg-white/5 text-foreground' : 'text-muted-foreground hover:bg-white/5'}`}>
+                  <Button 
+                    variant="ghost" 
+                    onClick={() => loadSession(session.id)}
+                    className="flex-1 justify-start h-full px-2 text-sm font-normal hover:text-foreground hover:bg-transparent bg-transparent"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 mr-2 shrink-0" />
+                    <span className="truncate">{session.title}</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteSession(session.id);
+                    }}
+                    className="h-7 w-7 mr-1 opacity-0 group-hover/item:opacity-100 hover:text-destructive hover:bg-destructive/10 shrink-0"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </Button>
+                </div>
               </div>
             )
           })}

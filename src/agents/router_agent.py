@@ -1,4 +1,6 @@
 import logging
+import json
+import re
 from src.agents.base import QueryPlan, TaskType, ExecutionStep
 
 logger = logging.getLogger(__name__)
@@ -10,10 +12,33 @@ class RouterAgent:
     def analyze(self, question: str) -> QueryPlan:
         q_lower = question.lower()
         
-        # --- FAST-TRACK PLANNER (Siêu tốc & Chính xác tuyệt đối) ---
-        company = "FPT" if "fpt" in q_lower else ("VNM" if "vinamilk" in q_lower or "vnm" in q_lower else ("ACB" if "acb" in q_lower else "HPG"))
-        year = "2023" if "2023" in q_lower else "2022"
+        prompt = (
+            "Bạn là một chuyên gia phân tích yêu cầu tài chính.\n"
+            f"Câu hỏi: '{question}'\n\n"
+            "Hãy trích xuất danh sách các công ty (Mã chứng khoán 3 chữ cái HOẶC tên viết tắt) và các năm được nhắc đến trong câu hỏi.\n"
+            "LƯU Ý QUAN TRỌNG: Nếu câu hỏi nhắc đến TÊN công ty mà không có mã, hãy quy đổi sang mã 3 chữ cái nếu bạn biết (VD: Vinamilk -> VNM, Đô thị Kinh Bắc -> KBC, Đức Long Gia Lai -> DLG). Nếu câu hỏi liệt kê một nhóm (VD: VIC-NVL-VRE-KBC-SCR-VPI), hãy liệt kê ĐẦY ĐỦ các mã đó.\n"
+            "Trả về kết quả dưới định dạng JSON CHÍNH XÁC (không có markdown):\n"
+            '{"companies": ["VNM", "KBC"], "years": ["2023", "2024"]}\n'
+            "Nếu không có công ty nào, trả về mảng rỗng []."
+        )
         
+        companies = []
+        years = []
+        try:
+            res = self.llm_call([{"role": "user", "content": prompt}], temperature=0.0)
+            json_str = re.search(r"\{.*\}", res, re.DOTALL)
+            if json_str:
+                data = json.loads(json_str.group(0))
+                companies = [str(c).upper() for c in data.get("companies", [])]
+                years = [str(y) for y in data.get("years", [])]
+        except Exception as e:
+            logger.error(f"RouterAgent LLM extraction failed: {e}")
+            # Fallback to simple regex if LLM fails
+            company_matches = re.findall(r'\b[A-Z]{3}\b', question)
+            companies = list(set(company_matches))
+            year_matches = re.findall(r'\b(201[0-9]|202[0-9])\b', question)
+            years = list(set(year_matches))
+
         sq_list = []
         if "doanh thu" in q_lower and "lợi nhuận" in q_lower:
             sq_list = [
@@ -38,8 +63,8 @@ class RouterAgent:
 
         plan = QueryPlan(
             task_type=TaskType.COMPLEX_DERIVED if len(steps) > 1 else TaskType.FINANCIAL_METRIC,
-            company=company,
-            year=year,
+            companies=companies,
+            years=years,
             sub_queries=sq_list[0],
             operation="SUM" if len(steps) > 1 else "NONE",
             is_complex=len(steps) > 1,

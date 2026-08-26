@@ -1,0 +1,70 @@
+--- Table: bb5627a7-760b-49e1-94e2-8a952c807530 ---
+['Chỉ tiêu', 'Năm nay', 'Năm trước']
+                                                          Chỉ tiêu          Năm nay        Năm trước
+1                      Tổng doanh thu bán hàng và cung cấp dịch vụ                                  
+2                         - Doanh thu bán hàng và cung cấp dịch vụ  265.724.099.691  248.419.557.089
+4                                     Các khoản giảm trừ doanh thu                                  
+8                  Doanh thu thuần về bán hàng và cung cấp dịch vụ  261.514.295.256  246.478.588.058
+9  Doanh thu với các bên liên quan(chỉ tiết tại Thuyết minh số 27)  164.992.897.403  163.160.826.298
+
+--- Table: FPT_2018_page1_table31 ---
+['Chỉ tiêu', 'Năm nay', 'Năm trước']
+                                                          Chỉ tiêu          Năm nay        Năm trước
+1                      Tổng doanh thu bán hàng và cung cấp dịch vụ                                  
+2                         - Doanh thu bán hàng và cung cấp dịch vụ  265.724.099.691  248.419.557.089
+4                                     Các khoản giảm trừ doanh thu                                  
+8                  Doanh thu thuần về bán hàng và cung cấp dịch vụ  261.514.295.256  246.478.588.058
+9  Doanh thu với các bên liên quan(chỉ tiết tại Thuyết minh số 27)  164.992.897.403  163.160.826.298
+
+--- Table: ec024a17-62e3-4973-b476-1d8b8726747b ---
+['Chỉ tiêu', 'Năm nayVND', 'Năm trướcVND']
+                             Chỉ tiêu  Năm nayVND       Năm trướcVND
+3  Doanh thu hoạt động tài chính khác  57.208.926  1.147.941.621.061
+
+--- Table: FPT_2018_page1_table34 ---
+['Chỉ tiêu', 'Năm nayVND', 'Năm trướcVND']
+                             Chỉ tiêu  Năm nayVND       Năm trướcVND
+3  Doanh thu hoạt động tài chính khác  57.208.926  1.147.941.621.061
+
+--- Table: b1487f79-253f-4a8d-bd45-08ca75fe3cfd ---
+['Chỉ tiêu', 'Năm nay', 'Năm trước']
+                                              Chỉ tiêu             Năm nay           Năm trước
+1          Tổng doanh thu bán hàng và cung cấp dịch vụ  23.259.126.277.266  43.298.396.301.993
+3                                 - Doanh thu bán hàng   3.417.614.918.696  26.380.377.860.542
+4                         - Doanh thu cung cấp dịch vụ  19.841.511.358.570  16.918.018.441.451
+5                         Các khoản giảm trừ doanh thu      45.589.419.541     639.785.460.639
+6  Doanh thu thuần về bán hàng hóa và cung cấp dịch vụ  23.213.536.857.725  42.658.610.841.354
+
+--- Table: FPT_2018_page1_table42 ---
+['Chỉ tiêu', 'Năm nay', 'Năm trước']
+                                              Chỉ tiêu             Năm nay           Năm trước
+1          Tổng doanh thu bán hàng và cung cấp dịch vụ  23.259.126.277.266  43.298.396.301.993
+3                                 - Doanh thu bán hàng   3.417.614.918.696  26.380.377.860.542
+4                         - Doanh thu cung cấp dịch vụ  19.841.511.358.570  16.918.018.441.451
+5                         Các khoản giảm trừ doanh thu      45.589.419.541     639.785.460.639
+6  Doanh thu thuần về bán hàng hóa và cung cấp dịch vụ  23.213.536.857.725  42.658.610.841.354
+
+--- Table: ee05a79a-12b0-49df-98e7-2c9eafc126b7 ---
+['Chỉ tiêu', 'Năm nay', 'Năm trước']
+                             Chỉ tiêu         Năm nay          Năm trước
+3  Doanh thu hoạt động tài chính khác  40.388.908.059  1.072.263.680.164
+
+--- Table: FPT_2018_page1_table45 ---
+['Chỉ tiêu', 'Năm nay', 'Năm trước']
+                             Chỉ tiêu         Năm nay          Năm trước
+3  Doanh thu hoạt động tài chính khác  40.388.908.059  1.072.263.680.164
+
+--- Table: f47aa250-3357-40e8-b802-3c8c3a1324b3 ---
+['Chỉ tiêu', 'Năm nay', 'Năm trước']
+                                                          Chỉ tiêu          Năm nay        Năm trước
+1                      Tổng doanh thu bán hàng và cung cấp dịch vụ                                  
+2                         - Doanh thu bán hàng và cung cấp dịch vụ  265.724.099.691  248.419.557.089
+4                                     Các khoản giảm trừ doanh thu                                  
+8                  Doanh thu thuần về bán hàng và cung cấp dịch vụ  261.514.295.256  246.478.588.058
+9  Doanh thu với các bên liên quan(chỉ tiết tại Thuyết minh số 27)  164.992.897.403  163.160.826.298
+
+--- Table: 3c564de9-ca5d-4a99-a919-faac39b1089e ---
+['Chỉ tiêu', 'Năm nayVND', 'Năm trướcVND']
+                             Chỉ tiêu  Năm nayVND       Năm trướcVND
+3  Doanh thu hoạt động tài chính khác  57.208.926  1.147.941.621.061
+

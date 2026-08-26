@@ -26,7 +26,8 @@ def parse_vietnamese_number(val: any) -> Optional[float]:
         
     try:
         res = float(s)
-        if int(res) in [2020, 2021, 2022, 2023, 2024, 2025]: return None
+        if int(res) in [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]: return None
+        if res.is_integer(): res = int(res)
         return -res if is_negative else res
     except:
         return None
@@ -41,7 +42,16 @@ def extract_financial_metric(dfs: dict, keywords: List[str], year: str, get_max:
             mask = pd.Series(False, index=s_name.index)
             for kw in keywords:
                 kw = str(kw).lower().strip()
-                mask = mask | s_str.str.contains(kw, case=False, na=False)
+                # 1. Khớp chính xác (nếu giống hoàn toàn chuỗi)
+                mask = mask | s_str.str.contains(kw, case=False, na=False, regex=False)
+                
+                # 2. Khớp theo từng từ (Fuzzy match)
+                kw_words = kw.split()
+                if len(kw_words) > 1:
+                    word_mask = pd.Series(True, index=s_name.index)
+                    for w in kw_words:
+                        word_mask = word_mask & s_str.str.contains(w, case=False, na=False, regex=False)
+                    mask = mask | word_mask
                 
             if not mask.any(): continue
             

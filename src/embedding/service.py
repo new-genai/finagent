@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 class EmbeddingService:
     """Provides local text embedding using SentenceTransformers."""
     
-    def __init__(self, model_name: str = "keepitreal/vietnamese-sbert"):
+    def __init__(self, model_name: str = "BAAI/bge-m3"):
         """
         Khởi tạo model Embedding.
         Sử dụng SentenceTransformer chạy hoàn toàn offline (local).

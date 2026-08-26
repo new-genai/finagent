@@ -1,0 +1,141 @@
+VJC_2018_page1_table11:
+0                      tiền mặt
+1            tiền gửi ngân hàng
+2    các khoản tương đương tiền
+3                           NaN
+VJC_2018_page1_table12:
+0                     số lượng
+1    tổng công ty dầu việt nam
+VJC_2018_page1_table40:
+0     tài sản thuế thu nhập hoãn lại:dự phòng phải trả
+1                                     chi phí phải trả
+2                  tổng tài sản thuế thu nhập hoãn lại
+3    thuế thu nhập hoãn lại phải trả:chi phí trả tr...
+4              đóng góp vào quỹ bảo dưỡng tàu bay thuê
+5        lãi chênh lệch tỷ giá hối đoái chưa thực hiện
+6                 tổng thuế thu nhập hoãn lại phải trả
+7                thuế thu nhập hoãn lại phải trả thuần
+VJC_2018_page1_table55:
+0      chi phí thuế thu nhập doanh nghiệp hiện hành
+1                                     năm hiện hành
+2              dự phòng thiếu trong những năm trước
+3                                               NaN
+4       chi phí thuế thu nhập doanh nghiệp hoãn lại
+5    phát sinh và hoàn nhập các chênh lệch tạm thời
+6            ảnh hưởng của thay đổi trong thuế suất
+7                                               NaN
+8                chi phí thuế thu nhập doanh nghiệp
+VJC_2018_page1_table66:
+0                                               2018vnd
+1           các công ty mà cổ đông có ảnh hưởng đáng kể
+2                          phát hành cổ phiếu phổ thông
+3              tiền gửi có kỳ hạn và chứng chỉ tiền gửi
+4                                 thu nhập lãi tiền gửi
+5                                                   vay
+6                                       chi phí lãi vay
+7                                   dịch vụ đã cung cấp
+8                                chi phí dịch vụ tư vấn
+9                                  các công ty liên kết
+10                        doanh thu từ cho thuê tàu bay
+11                         doanh thu từ dịch vụ đặt chỗ
+12              chi phí chi hộ, dòng tiền chi trả thuần
+13                               các bên liên quan khác
+14                                          bán tàu bay
+15                                 chi phí thuê tàu bay
+16                        đặt cọc quỹ bảo dưỡng tàu bay
+17                                 đặt cọc thuê tàu bay
+18                                              cho vay
+19                                     thu nhập lãi vay
+20                                  dịch vụ đã cung cấp
+21                     trả trước chi phí dịch vụ tư vấn
+22                           trả trước dịch vụ xây dựng
+23                                                  vay
+24                             thanh lý các công ty con
+25              chi phí chi hộ, dòng tiền chi trả thuần
+26    thành viên hội đồng quản trị,ban giám đốc và b...
+27             chương trình cổ phiếu cho người lao động
+28                                     thù lao và lương
+VJC_2018_page1_table6:
+0                             nguồn vốn
+1         nộ phải trả (300 = 310 + 330)
+2                           nợ ngắn hạn
+3           phải trả người bán ngắn hạn
+4     người mua trả tiền trước ngắn hạn
+5                thuế phải nộp nhà nước
+6             chi phí phải trả ngắn hạn
+7     doanh thu chưa thực hiện ngắn hạn
+8                phải trả ngắn hạn khác
+9                          vay ngắn hạn
+10           dự phòng phải trả ngắn hạn
+11                           nợ dài hạn
+12                phải trả dài hạn khác
+13                          vay dài hạn
+14      thuế thu nhập hoãn lại phải trả
+15            dự phòng phải trả dài hạn
+16           vốn chủ sở hữu (400 = 410)
+17                       vốn chủ sở hữu
+18                          vốn cổ phần
+19                 thặng dư vốn cổ phần
+20    lợi nhuận sau thuế chưa phân phối
+21     tổng nguồn vốn (440 = 300 + 400)
+VJC_2018_page1_table7:
+0                doanh thu bán hàng và cung cấp dịch vụ
+1                  giá vốn hàng bán và cung cấp dịch vụ
+2     lợi nhuận gộp từ bán hàng và cung cấp dịch vụ ...
+3                         doanh thu hoạt động tài chính
+4                                     chi phí tài chính
+5                             trong đó: chi phí lãi vay
+6                                      chi phí bán hàng
+7                          chi phí quản lý doanh nghiệp
+8     lợi nhuận thuần từ hoạt động kinh doanh {30 = ...
+9                                         thu nhập khác
+10                                         chi phí khác
+11         kết quả từ các hoạt động khác (40 = 31 - 32)
+12          lợi nhuận kế toán trước thuế (50 = 30 + 40)
+13                          chi phí thuế tndn hiện hành
+14                           chi phí thuế tndn hoãn lại
+15          lợi nhuận sau thuế tndn (60 = 50 - 51 - 52)
+VJC_2018_page1_table33:
+0    doanh thu vận chuyển hành khách và hoạt động p...
+VJC_2018_page1_table48:
+0                            vận chuyển hành khách
+1                                        ▪ nội địa
+2                                        ▪ quốc tế
+3    ▪ cho thuê chuyển bay và cho thuê ướt tàu bay
+4                                              NaN
+5                      doanh thu hoạt động phụ trợ
+6                doanh thu từ cho thuê khô tàu bay
+7                                   doanh thu khác
+8                                              NaN
+VJC_2018_page1_table57:
+0                                               2018vnd
+1               công ty mà cổ đông có ảnh hưởng đáng kể
+2                          phát hành cổ phiếu phổ thông
+3              tiền gửi có kỳ hạn và chứng chỉ tiền gửi
+4                                 thu nhập lãi tiền gửi
+5                                                   vay
+6                                       chi phí lãi vay
+7                                   dịch vụ đã cung cấp
+8                                chi phí dịch vụ tư vấn
+9                   các công ty con và công ty liên kết
+10                        doanh thu vận chuyển hàng hóa
+11                        doanh thu cho thuê chuyển bay
+12                           doanh thu cho thuê tàu bay
+13                            chi phí hoa hồng bán hàng
+14                          doanh thu từ dịch vụ tư vấn
+15                         doanh thu từ dịch vụ đặt chỗ
+16                                     cổ tức được nhận
+17       chi phí thu và chi hộ, dòng tiền thu vào thuần
+18                               các bên liên quan khác
+19                                 chi phí thuê tàu bay
+20                        đặt cọc quỹ bảo dưỡng tàu bay
+21                                 đặt cọc thuê tàu bay
+22                                     cung cấp dịch vụ
+23                             trả trước dịch vụ tư vấn
+24                           trả trước dịch vụ xây dựng
+25                                                  vay
+26                             thanh lý các công ty con
+27              chi phí trả hộ, dòng tiền chi trả thuần
+28    thành viên hội đồng quản trị, ban giám đốc và ...
+29             chương trình cổ phiếu cho người lao động
+30                                     thù lao và lương

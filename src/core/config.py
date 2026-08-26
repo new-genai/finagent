@@ -12,7 +12,6 @@ class Settings:
     BASE_DIR: Path = Path(__file__).resolve().parent.parent.parent
     DATA_DIR: Path = BASE_DIR / "scripts" / "data"
     INDEX_DIR: Path = BASE_DIR / "data" / "index"
-    DB_PATH: str = str(BASE_DIR / "data" / "finagent.db")
     
     PANDAS_EXECUTION_TIMEOUT_SEC: int = 5
     TOP_K_RETRIEVAL: int = 15
@@ -22,6 +21,10 @@ class Settings:
     LLM_MODEL: str = "qwen/qwen3-8b"  # Model ID ban đầu hoạt động ổn định
     LLM_TIMEOUT_SEC: int = int(os.environ.get("LLM_TIMEOUT_SEC", "30"))
     LLM_API_KEY: str = os.environ.get("OPENROUTER_API_KEY", "")
+    
+    # Supabase Configuration
+    SUPABASE_URL: str = os.environ.get("SUPABASE_URL", "")
+    SUPABASE_KEY: str = os.environ.get("SUPABASE_KEY", "")
 
     def __init__(self):
         self.DATA_DIR.mkdir(parents=True, exist_ok=True)

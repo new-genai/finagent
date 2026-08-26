@@ -8,12 +8,17 @@ class DynamicPandasWorker:
         self.llm_call = llm_call
 
     def generate_code(self, question: str, plan, context_str: str) -> str:
-        year_target = str(plan.year) if plan and plan.year else "2023"
-        
+        if isinstance(plan, dict):
+            year_target = str(plan.get("year")) if plan.get("year") else "2023"
+        else:
+            year_target = str(plan.year) if plan and getattr(plan, "year", None) else "2023"
+            
         prompt = (
             "Bạn là một chuyên gia Data. Nhiệm vụ của bạn là lấy số liệu tài chính.\n"
             f"Câu hỏi: '{question}'\n"
             f"Năm: '{year_target}'\n\n"
+            "THÔNG TIN CÁC BẢNG DỮ LIỆU ĐANG CÓ (Bạn PHẢI dựa vào thông tin này để chọn keywords chính xác có trong bảng):\n"
+            f"{context_str}\n\n"
             "BẠN ĐƯỢC CUNG CẤP HÀM SAU:\n"
             "`extract_financial_metric(dfs, keywords: List[str], year: str, get_max: bool = True) -> float`\n\n"
             "MẪU CODE BẮT BUỘC:\n"

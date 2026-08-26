@@ -42,6 +42,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { useDatasetStats } from "@/hooks/useQueries"
+import { useLanguage } from "@/providers/language-provider"
 
 const chartColors = [
   "oklch(0.62 0.18 248)",
@@ -57,6 +58,7 @@ const formatNumber = (value: number) => new Intl.NumberFormat("en-US").format(va
 export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const { data: stats, isLoading } = useDatasetStats()
+  const { lang } = useLanguage()
   const router = useRouter()
 
   const companyCounts = useMemo(() => stats?.company_table_counts ?? {}, [stats?.company_table_counts])
@@ -82,36 +84,36 @@ export default function DashboardPage() {
 
   const metricRows = [
     {
-      label: "Reports indexed",
+      label: lang === "EN" ? "Reports indexed" : "Báo cáo đã xử lý",
       value: totalFiles,
       unit: "company-years",
-      detail: "Distinct ticker/year pairs parsed from real table names",
+      detail: lang === "EN" ? "Distinct ticker/year pairs parsed from real table names" : "Các báo cáo công ty/năm đã được trích xuất",
     },
     {
-      label: "Extracted tables",
+      label: lang === "EN" ? "Extracted tables" : "Bảng dữ liệu",
       value: totalTables,
       unit: "tables",
-      detail: "Actual DuckDB tables available to retrieval and execution",
+      detail: lang === "EN" ? "Actual DuckDB tables available to retrieval and execution" : "Số lượng bảng thực tế lưu trữ trên DuckDB",
     },
     {
-      label: "Companies",
+      label: lang === "EN" ? "Companies" : "Số lượng công ty",
       value: companies.length,
       unit: "tickers",
-      detail: companies.slice(0, 12).join(", ") || "No company metadata returned",
+      detail: companies.slice(0, 12).join(", ") || (lang === "EN" ? "No company metadata returned" : "Chưa có dữ liệu công ty"),
     },
     {
-      label: "Years covered",
+      label: lang === "EN" ? "Years covered" : "Các năm báo cáo",
       value: years.length,
       unit: "years",
-      detail: years.join(", ") || "No reporting years returned",
+      detail: years.join(", ") || (lang === "EN" ? "No reporting years returned" : "Chưa có dữ liệu năm"),
     },
   ]
 
   const actions = [
-    { name: "Chat", desc: "Ask over financial tables", icon: MessageSquare, href: "/chat" },
-    { name: "Dataset", desc: `${formatNumber(totalTables)} real tables`, icon: Database, href: "/dataset" },
-    { name: "Parser", desc: "Extract new reports", icon: FileText, href: "/parser" },
-    { name: "Evaluation", desc: "Measure retrieval quality", icon: BarChart2, href: "/evaluation" },
+    { name: lang === "EN" ? "Chat" : "Trò chuyện", desc: lang === "EN" ? "Ask over financial tables" : "Hỏi đáp dữ liệu", icon: MessageSquare, href: "/chat" },
+    { name: lang === "EN" ? "Dataset" : "Dữ liệu", desc: `${formatNumber(totalTables)} ${lang === "EN" ? "real tables" : "bảng thực tế"}`, icon: Database, href: "/dataset" },
+    { name: lang === "EN" ? "Parser" : "Trích xuất", desc: lang === "EN" ? "Extract new reports" : "Đọc file PDF mới", icon: FileText, href: "/parser" },
+    { name: lang === "EN" ? "Evaluation" : "Đánh giá", desc: lang === "EN" ? "Measure retrieval quality" : "Đo lường độ chính xác", icon: BarChart2, href: "/evaluation" },
   ]
 
   const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -135,9 +137,11 @@ export default function DashboardPage() {
                 Live DuckDB dashboard
               </Badge>
               <div className="space-y-2">
-                <h1 className="text-3xl font-semibold tracking-normal md:text-4xl">Dashboard</h1>
+                <h1 className="text-3xl font-semibold tracking-normal md:text-4xl">{lang === "EN" ? "Dashboard" : "Tổng quan"}</h1>
                 <p className="max-w-3xl text-sm leading-6 text-muted-foreground">
-                  Theo dõi dữ liệu thật từ DuckDB: số bảng, mã công ty, năm báo cáo và phân bổ nguồn dữ liệu.
+                  {lang === "EN" 
+                    ? "Monitor real data from DuckDB: tables, companies, reporting years, and source distribution."
+                    : "Theo dõi dữ liệu thật từ DuckDB: số bảng, mã công ty, năm báo cáo và phân bổ nguồn dữ liệu."}
                 </p>
               </div>
             </div>
@@ -152,7 +156,7 @@ export default function DashboardPage() {
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 onKeyDown={handleSearch}
-                placeholder="Query financial data..."
+                placeholder={lang === "EN" ? "Query financial data..." : "Tìm kiếm dữ liệu tài chính..."}
                 className="min-w-0 flex-1 border-none bg-transparent py-4 text-sm text-foreground outline-none placeholder:text-muted-foreground"
               />
             </div>
@@ -177,8 +181,8 @@ export default function DashboardPage() {
         </motion.div>
 
         <ChartCard
-          title="Company Distribution"
-          description="Số bảng thật theo mã công ty."
+          title={lang === "EN" ? "Company Distribution" : "Phân bổ theo Công ty"}
+          description={lang === "EN" ? "Real tables grouped by ticker." : "Số bảng thật theo mã công ty."}
           icon={<Table2 className="h-4 w-4 text-primary" />}
         >
           {companyChartData.length ? (
@@ -205,12 +209,12 @@ export default function DashboardPage() {
               <div>
                 <CardTitle className="flex items-center gap-2 text-base">
                   <Database className="h-4 w-4 text-primary" />
-                  Source Inventory
+                  {lang === "EN" ? "Source Inventory" : "Nguồn Dữ liệu"}
                 </CardTitle>
-                <CardDescription>Bảng kiểm kê đọc từ thống kê backend hiện tại.</CardDescription>
+                <CardDescription>{lang === "EN" ? "Inventory statistics from the backend." : "Bảng kiểm kê đọc từ thống kê backend hiện tại."}</CardDescription>
               </div>
               <Badge variant="secondary" className="rounded-none">
-                Real data
+                {lang === "EN" ? "Real data" : "Dữ liệu thật"}
               </Badge>
             </div>
           </CardHeader>
@@ -243,8 +247,8 @@ export default function DashboardPage() {
         </Card>
 
         <ChartCard
-          title="Year Coverage"
-          description="Số bảng thật theo năm báo cáo."
+          title={lang === "EN" ? "Year Coverage" : "Phân bổ theo Năm"}
+          description={lang === "EN" ? "Real tables grouped by reporting year." : "Số bảng thật theo năm báo cáo."}
           icon={<BarChart2 className="h-4 w-4 text-primary" />}
         >
           {yearChartData.length ? (

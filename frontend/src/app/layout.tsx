@@ -3,6 +3,7 @@ import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { QueryProvider } from "@/providers/query-provider";
+import { LanguageProvider } from "@/providers/language-provider";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Toaster } from "sonner";
 
@@ -39,8 +40,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AppLayout>{children}</AppLayout>
-            <Toaster richColors position="top-right" theme="system" />
+            <LanguageProvider>
+              <AppLayout>{children}</AppLayout>
+              <Toaster richColors position="top-right" theme="system" />
+            </LanguageProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>

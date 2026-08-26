@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from simpleeval import simple_eval
 from src.schemas.api import ChatRequest, ChatResponse, Evidence, DatasetStatsResponse, RetrieveRequest, RetrieveResponse, ExecuteRequest, ExecuteResponse
 from src.core.config import settings
-from .deps import get_hybrid_retriever, get_pandas_executor, get_llm_service, get_table_loader
+from .deps import get_hybrid_retriever, get_pandas_executor, get_llm_service, get_table_loader, get_db_service
 from src.agents.base import QueryPlan, ExecutionStep
 import concurrent.futures
 
@@ -73,14 +73,12 @@ def get_statistics(db = Depends(get_db_service)):
     table_names: list[str] = []
 
     try:
-        if db:
-            rows = db.query("SHOW TABLES")
-            if hasattr(rows, "iloc"):
-                table_names = [str(value) for value in rows.iloc[:, 0].tolist()]
-            else:
-                table_names = [str(row[0]) for row in rows]
+        # Load available tables directly from CSV directory
+        csv_dir = settings.BASE_DIR / "data" / "processed" / "csv"
+        if csv_dir.exists():
+            table_names = [path.stem for path in csv_dir.glob("*.csv")]
     except Exception as e:
-        logger.warning(f"Could not read DuckDB table statistics: {e}")
+        logger.warning(f"Could not read CSV statistics: {e}")
 
     if not table_names:
         csv_dir = settings.BASE_DIR / "data" / "processed" / "csv"
@@ -135,6 +133,13 @@ def execute_pandas_code(req: ExecuteRequest, executor = Depends(get_pandas_execu
     else:
         return ExecuteResponse(success=False, error=output)
 
+@router.post("/submission")
+def generate_submission():
+    """Mock API để giả lập quá trình xuất file CSV nộp bài."""
+    import time
+    time.sleep(2) # Giả lập thời gian chạy
+    return {"status": "success", "message": "Đã tạo thành công file submission.csv"}
+
 @router.post("/chat", response_model=ChatResponse)
 def chat_end_to_end(
     req: ChatRequest, 
@@ -149,8 +154,8 @@ def chat_end_to_end(
         plan_dict = llm.decompose_query(req.question)
         plan = QueryPlan(**plan_dict)
         
-        company = plan.company
-        year = plan.year
+        companies = plan.companies
+        years = plan.years
         global_state: Dict[str, Any] = {}
         
         all_relevant_docs = set()
@@ -170,11 +175,20 @@ def chat_end_to_end(
             seen_table_ids = set()
 
             for sq in sq_list:
-                sub_results = retriever.retrieve_single(sub_query=sq, company=company, year=year, top_k=15)
-                for t in sub_results:
-                    if t.table_id not in seen_table_ids:
-                        seen_table_ids.add(t.table_id)
-                        selected_tables.append(t)
+                c_list = companies if companies else [None]
+                y_list = years if years else [None]
+                
+                for c in c_list:
+                    for y in y_list:
+                        # Convert to str if not None, as retrieve_single expects str
+                        c_str = str(c) if c else None
+                        y_str = str(y) if y else None
+                        
+                        sub_results = retriever.retrieve_single(sub_query=sq, company=c_str, year=y_str, top_k=15)
+                        for t in sub_results:
+                            if t.table_id not in seen_table_ids:
+                                seen_table_ids.add(t.table_id)
+                                selected_tables.append(t)
 
             dfs = table_loader.load_dataframes(selected_tables)
             context_str = llm.context_builder.build(selected_tables, metric_intent=step.metric_intent)
@@ -194,6 +208,7 @@ def chat_end_to_end(
 
             for attempt in range(2):
                 success, output = executor.execute(code, dfs)
+                
                 if success and isinstance(output, dict) and output.get("value") is not None:
                     extracted_value = output["value"]
                     step_success = True
@@ -203,6 +218,10 @@ def chat_end_to_end(
                 if success and output is not None and not isinstance(output, dict) and not str(output).startswith("ERROR:") and str(output) not in ["None", "nan", "NaN", ""]:
                     extracted_value = output
                     step_success = True
+                    break
+                    
+                if success and (output is None or (isinstance(output, dict) and output.get("value") is None)):
+                    step_logs.append(f"   [Thử {attempt + 1}] Không tìm thấy dữ liệu phù hợp (extract_financial_metric trả về None). Ngừng thử lại.")
                     break
                     
                 error_msg = str(output) if not success else "Giá trị rỗng."

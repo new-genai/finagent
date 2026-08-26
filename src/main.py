@@ -18,7 +18,7 @@ async def lifespan(app: FastAPI):
     deps.get_llm_service()
     logger.info("⚡ API Server đã sẵn sàng trên cổng 8000!")
     yield
-    deps.get_db_service().close()
+    pass
 
 app = FastAPI(title=settings.APP_NAME, lifespan=lifespan)
 app.add_middleware(

@@ -16,22 +16,40 @@ import {
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/providers/language-provider"
 
-const workspaceItems = [
+const workspaceItemsEN = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard, desc: "Live metrics" },
   { name: "Chat", href: "/chat", icon: MessageSquare, desc: "Ask data" },
   { name: "Dataset", href: "/dataset", icon: Database, desc: "Tables" },
   { name: "Parser", href: "/parser", icon: FileText, desc: "Extract" },
 ]
 
-const analysisItems = [
+const analysisItemsEN = [
   { name: "Retrieval", href: "/retrieval", icon: Search, desc: "Search test" },
   { name: "Evaluation", href: "/evaluation", icon: BarChart2, desc: "Scores" },
   { name: "Submission", href: "/submission", icon: Send, desc: "Export" },
 ]
 
+const workspaceItemsVI = [
+  { name: "Tổng quan", href: "/", icon: LayoutDashboard, desc: "Số liệu trực tiếp" },
+  { name: "Trò chuyện", href: "/chat", icon: MessageSquare, desc: "Hỏi đáp dữ liệu" },
+  { name: "Dữ liệu", href: "/dataset", icon: Database, desc: "Các bảng DuckDB" },
+  { name: "Trích xuất", href: "/parser", icon: FileText, desc: "Đọc báo cáo PDF" },
+]
+
+const analysisItemsVI = [
+  { name: "Truy hồi", href: "/retrieval", icon: Search, desc: "Test tìm kiếm" },
+  { name: "Đánh giá", href: "/evaluation", icon: BarChart2, desc: "Chấm điểm mô hình" },
+  { name: "Nộp bài", href: "/submission", icon: Send, desc: "Xuất file CSV" },
+]
+
 export function Sidebar() {
   const pathname = usePathname()
+  const { lang } = useLanguage()
+
+  const workspaceItems = lang === "EN" ? workspaceItemsEN : workspaceItemsVI
+  const analysisItems = lang === "EN" ? analysisItemsEN : analysisItemsVI
 
   return (
     <aside className="hidden h-full w-[248px] shrink-0 border-r border-border bg-card/70 lg:flex lg:flex-col">
@@ -48,16 +66,16 @@ export function Sidebar() {
       </div>
 
       <nav className="flex-1 space-y-5 overflow-y-auto p-3">
-        <NavGroup label="Workspace" items={workspaceItems} pathname={pathname} />
-        <NavGroup label="Analysis" items={analysisItems} pathname={pathname} />
+        <NavGroup label={lang === "EN" ? "Workspace" : "Không gian làm việc"} items={workspaceItems} pathname={pathname} />
+        <NavGroup label={lang === "EN" ? "Analysis" : "Phân tích"} items={analysisItems} pathname={pathname} />
       </nav>
 
       <div className="space-y-2 border-t border-border p-3">
         <SidebarLink
-          name="Settings"
+          name={lang === "EN" ? "Settings" : "Cài đặt"}
           href="/settings"
           icon={Settings}
-          desc="Theme & app"
+          desc={lang === "EN" ? "Theme & app" : "Giao diện & ƯD"}
           active={pathname === "/settings"}
         />
         <Link
