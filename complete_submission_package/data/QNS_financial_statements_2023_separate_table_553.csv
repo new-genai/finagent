@@ -1,0 +1,36 @@
+col_0,col_1,col_2,col_3
+CHỈ TIÊU,0.0,0.0,0.0
+I. Lưu chuyển tiền từ hoạt động kinh doanh,0.0,0.0,0.0
+1. Lợi nhuận trước thuế,1.0,2612821126851.0,1644918382514.0
+2. Điều chỉnh cho các khoản,0.0,0.0,0.0
+- Khấu hao Tài sản cố định và phân bổ tiền thuê đất,2.0,445398005331.0,489471207119.0
+- Các khoản dự phòng,3.0,3327627630.0,931599178.0
+"- Lãi, lỗ chênh lệch tỷ giá hối đoái do đánh giá lại các khoản mục tiền tệ có gốc ngoại tệ",4.0,321940146.0,-1760938648.0
+"- Lãi, lỗ từ hoạt động đầu tư",5.0,-478258282853.0,-298926954328.0
+- Chi phí lãi vay,6.0,136264011316.0,83170019490.0
+- Các khoản điều chỉnh khác,7.0,150000000000.0,0.0
+3. Lợi nhuận từ HĐKD trước thay đổi vốn lưu động,8.0,2869874428421.0,1917803315325.0
+"- Tăng, giảm các khoản phải thu",9.0,-64080565283.0,-194447753828.0
+"- Tăng, giảm hàng tồn kho",10.0,-13488961596.0,-128962947734.0
+"- Tăng, giảm các khoản phải trả",11.0,22709395206.0,125911568929.0
+"- Tăng, giảm chi phí trả trước",12.0,21177777354.0,-52453337555.0
+- Tiền lãi vay đã trả,14.0,-136605687173.0,-82326985855.0
+- Thuế thu nhập doanh nghiệp đã nộp,15.0,-245637015090.0,-153769341477.0
+- Tiền chi khác từ hoạt động kinh doanh,17.0,-18418446194.0,-19894849973.0
+Lưu chuyển tiền thuần từ hoạt động kinh doanh,20.0,2435530925645.0,1411859667832.0
+II. Lưu chuyển tiền từ hoạt động đầu tư,0.0,0.0,0.0
+1. Tiền chi đề mua sắm XD TSCĐ và các TS DH khác,21.0,-219442528152.0,-101793212971.0
+"2. Tiền thu từ TLý, nhượng bán TSCĐ và các TS DH khác",22.0,448861168.0,0.0
+"3. Tiền chi cho vay, mua các công cụ nợ của đơn vị khác",23.0,-10554000000000.0,-5165000000000.0
+"4. Tiền thu hồi cho vay, bán lại các CC nợ của đơn vị khác",24.0,8685000000000.0,4792000000000.0
+"5. Tiền thu lãi cho vay, cổ tức và lợi nhuận được chia",27.0,473502328530.0,292773342003.0
+Lưu chuyển tiền thuần từ hoạt động đầu tư,30.0,-1614491338454.0,-182019870968.0
+III. Lưu chuyển tiền từ hoạt động tài chính,0.0,0.0,0.0
+1. Tiền thu từ đi vay,33.0,6761780787221.0,5569341998122.0
+2. Tiền trả nợ gốc vay,34.0,-6246359786374.0,-5705734886722.0
+"3. Cổ tức, lợi nhuận đã trả cho chủ sở hữu",36.0,-1249260533100.0,-1070852362600.0
+Lưu chuyển tiền thuần từ hoạt động tài chính,40.0,-733839532253.0,-1207245251200.0
+Lưu chuyển tiền thuần trong kỳ,50.0,87200054938.0,22594545664.0
+Tiền và tương đương tiền đầu kỳ,60.0,201953492369.0,178527322546.0
+Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ,61.0,-184059946.0,831624159.0
+Tiền và tương đương tiền cuối kỳ,70.0,288969487361.0,201953492369.0

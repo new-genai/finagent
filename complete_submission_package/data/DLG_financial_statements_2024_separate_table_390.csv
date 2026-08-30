@@ -1,0 +1,30 @@
+col_0,col_1,col_2,col_3,col_4
+CHỈ TIÊU,0.0,0.0,0.0,0.0
+I. Lưu chuyển tiền từ hoạt động kinh doanh,0.0,0.0,0.0,0.0
+Lợi nhuận trước thuế,1.0,0.0,186989238027.0,-591561730438.0
+Điều chỉnh cho các khoản,0.0,0.0,0.0,0.0
+Khấu hao TSCĐ và BĐSĐT,2.0,0.0,17596144966.0,18117835826.0
+Các khoản dự phòng,3.0,0.0,170647890418.0,637732670221.0
+"Lãi, lỗ các khoản chênh lệch tỷ giá hối đoái do đánh giá lại các khoản mục tiền tệ có gốc ngoại tệ",4.0,0.0,-9765992184.0,-626113950.0
+"Lãi, lỗ hoạt động đầu tư",5.0,0.0,-227089380123.0,-243278793783.0
+Chi phí lãi vay,6.0,0.0,153551521496.0,173210043152.0
+Lợi nhuận từ hoạt động kinh doanh trước thay đổi vốn lưu động,8.0,0.0,291929422600.0,-6406088972.0
+Tăng giảm các khoản phải thu,9.0,0.0,-76257550546.0,60635335043.0
+Tăng giảm hàng tồn kho,10.0,0.0,-2468848691.0,1624242801.0
+"Tăng giảm các khoản phải trả (không kể lãi vay phải trả, thuế thu nhập doanh nghiệp phải nộp)",11.0,0.0,-40201898383.0,-8078768709.0
+Tăng giảm chi phí trả trước,12.0,0.0,14475756.0,-3612119.0
+Tiền lãi vay đã trả,14.0,0.0,-322492144381.0,-9595156490.0
+Thuế thu nhập doanh nghiệp đã nộp,15.0,0.0,0.0,-8729038865.0
+Tiền chi khác từ hoạt động kinh doanh,17.0,0.0,-726084800.0,-20000000.0
+Lưu chuyển tiền thuần từ hoạt động kinh doanh,20.0,0.0,-150202628445.0,29426912689.0
+II. Lưu chuyển tiền từ hoạt động đầu tư,0.0,0.0,0.0,0.0
+"Tiền chi để mua sắm, xây dựng TSCĐ và các TS dài hạn khác",21.0,0.0,0.0,-38500000.0
+"Tiền chi cho vay, mua các công cụ nợ của đơn vị khác",23.0,0.0,-2590684128753.0,-1048849845616.0
+"Tiền thu hồi cho vay, bán lại các công cụ nợ của đơn vị khác",24.0,0.0,2511811903251.0,954737540352.0
+Tiền thu hồi đầu tư góp vốn vào đơn vị khác,26.0,0.0,255000000000.0,3600000000.0
+"Tiền thu lãi vay, cổ tức và lợi nhuận được chia",27.0,0.0,226501182686.0,111247178959.0
+Lưu chuyển tiền thuần từ hoạt động đầu tư,30.0,0.0,402628957184.0,20696373695.0
+III. Lưu chuyển tiền từ hoạt động tài chính,0.0,0.0,0.0,0.0
+Tiền thu từ đi vay,33.0,0.0,20000000000.0,25390034377.0
+Tiền chi trả nợ gốc vay,34.0,0.0,-275227168866.0,-75982016553.0
+Lưu chuyển tiền thuần từ hoạt động tài chính,40.0,0.0,-255227168866.0,-50591982176.0

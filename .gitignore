@@ -255,3 +255,10 @@ test_results.json
 test_*.py
 scratch/
 scripts/data/
+# Generated Indexes & Large Artifacts
+data/index/
+*.index
+comparison_report.json
+execution_audit.json
+retrieval_audit_report.json
+ok1

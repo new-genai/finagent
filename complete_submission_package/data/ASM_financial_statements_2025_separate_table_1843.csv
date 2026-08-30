@@ -1,0 +1,13 @@
+col_0,col_1,col_2
+Năm nay,0.0,0.0
+- Chi phí thuế thu nhập doanh nghiệp tính trên thu nhập chịu thuế trong năm hiện hành,1450250467.0,6408882511.0
+Lợi nhuận KT trước thuế (1),107353640925.0,196739119159.0
+Các khoản điều chỉnh giảm (2),243500000000.0,195011752052.0
+- Các khoản thu nhập không tính thuế (cổ tức được chia),243500000000.0,195011752052.0
+Các khoản điều chỉnh tăng (3),165151368416.0,126450283115.0
+- Lãi vay bị loại và chi phí khác không được trừ,165151368416.0,126450283115.0
+Thu nhập tính thuế = (1) - (2) + (3),29005009341.0,128177650222.0
+Thuế suất (*),5.0,5.0
+Thuế TNDN hiện hành,1450250467.0,6408882511.0
+- Điều chỉnh chi phí thuế thu nhập doanh nghiệp của các năm trước vào chi phí thuế thu nhập hiện hành năm này (**),5219080287.0,0.0
+Tổng chi phí thuế thu nhập doanh nghiệp hiện hành,6669330754.0,6408882511.0

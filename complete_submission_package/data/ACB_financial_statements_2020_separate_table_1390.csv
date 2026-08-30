@@ -1,0 +1,9 @@
+col_0,col_1,col_2
+31.12.2020%,0.0,0.0
+Tiền gửi khách hàng:,0.0,0.0
+- Tiền gửi bằng ngoại tệ có thời hạn dưới 12 tháng,8.0,8.0
+- Tiền gửi bằng ngoại tệ có thời hạn từ 12 tháng trở lên,6.0,6.0
+- Tiền gửi bằng VND có thời hạn dưới 12 tháng,3.0,3.0
+- Tiền gửi bằng VND có thời hạn từ 12 tháng trở lên,1.0,1.0
+Tiền gửi của tổ chức tín dụng nước ngoài:,0.0,0.0
+- Tiền gửi bằng ngoại tệ,1.0,1.0

@@ -9,25 +9,25 @@ class TermNormalizer:
     """Normalizes financial terms using a predefined dictionary."""
     def __init__(self):
         self.term_mapping = {
-            "doanh thu thu n": "net_revenue",
+            "doanh thu thuần": "net_revenue",
             "revenue": "net_revenue",
             "net revenue": "net_revenue",
             "sales": "net_revenue",
             "doanh thu": "net_revenue",
-            "l i nhu n": "profit",
+            "lợi nhuận": "profit",
             "profit": "profit",
             "net profit": "profit",
-            "l i nhu n sau thu ": "profit",
-            "t n": "assets",
-            "t ng t n": "assets",
+            "lợi nhuận sau thuế": "profit",
+            "tài sản": "assets",
+            "tổng tài sản": "assets",
             "assets": "assets",
-            "ti t": "cash",
+            "tiền mặt": "cash",
             "cash": "cash",
-            "h ng t n kho": "inventory",
+            "hàng tồn kho": "inventory",
             "inventory": "inventory",
-            "h ng kho": "inventory"
+            "hàng kho": "inventory"
         }
-             
+
     def normalize(self, term: str) -> str:
         if not term:
             return ""
@@ -44,18 +44,13 @@ class FinancialDataCleaner:
     @staticmethod
     def parse_vn_financial_number(val) -> float:
         if pd.isna(val) or val is None:
-            return np.nan
+            return 0.0
         if isinstance(val, (int, float)):
             return float(val)
             
         s = str(val).strip().replace('\u200b', '').replace('\xa0', '')
-        if not s or s in ['-', ' ', '—', '_', 'N/A', 'n/a', 'na', 'null', 'None']:
+        if not s or s in ['-', ' ', '_', 'N/A', 'n/a', 'na', 'null', 'None', '.']:
             return 0.0
-            
-        # Kiểm tra xem có chứa chữ cái tiếng Việt hoặc tiếng Anh không (bỏ qua 'vnd', 'usd')
-        test_str = s.lower().replace("vnd", "").replace("usd", "").strip()
-        if re.search(r'[a-zđáàãạảăâấầẫẩậắằẵặẳéèẽẹẻêếềễệểíìĩịỉóòõọỏôốồỗộổơớờỡợởúùũụủưứừữựửýỳỹỵỷ]', test_str):
-            return np.nan # Trả về NaN để TableExtractor nhận biết đây là Text và giữ nguyên
             
         is_negative = False
         if (s.startswith('(') and s.endswith(')')) or (s.startswith('[') and s.endswith(']')):
@@ -65,7 +60,7 @@ class FinancialDataCleaner:
             is_negative = True
             s = s[1:].strip()
             
-        # Xử lý định dạng dấu chấm/phẩy kiểu Việt Nam
+        # Chuẩn hóa dấu chấm/phẩy kiểu Việt Nam
         if '.' in s and ',' in s:
             if s.rfind(',') > s.rfind('.'):
                 s = s.replace('.', '').replace(',', '.')
@@ -85,6 +80,8 @@ class FinancialDataCleaner:
         clean_str = re.sub(r'[^\d.]', '', s)
         try:
             num = float(clean_str)
+            if abs(num) > 1e16 or (2010 <= num <= 2030 and num.is_integer()):
+                return 0.0
             return -num if is_negative else num
-        except ValueError:
-            return np.nan
+        except Exception:
+            return 0.0

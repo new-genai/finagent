@@ -1,0 +1,452 @@
+[
+  {
+    "id": 6,
+    "question": "Lưu chuyển tiền thuần từ hoạt động kinh doanh của công ty mẹ VSC trong năm 2017 là bao nhiêu tỷ đồng?",
+    "gold_doc": "VSC_financial_statements_2017_separate",
+    "gold_table_line": 224,
+    "gold_val_raw": 192498863748.0,
+    "gold_final_answer": 192.49886374800002,
+    "metric": "lưu chuyển tiền thuần"
+  },
+  {
+    "id": 10,
+    "question": "Chi phí tài chính của công ty mẹ CTCP Phát triển Sunshine Homes năm 2021 là bao nhiêu triệu đồng?",
+    "gold_doc": "SSH_financial_statements_2021_separate",
+    "gold_table_line": 279,
+    "gold_val_raw": 135883518894.0,
+    "gold_final_answer": 135883.518894,
+    "metric": "chi phí tài chính"
+  },
+  {
+    "id": 14,
+    "question": "Chi phí quản lý doanh nghiệp năm 2025 của công ty mẹ ASM là bao nhiêu triệu đồng?",
+    "gold_doc": "ASM_financial_statements_2025_separate",
+    "gold_table_line": 410,
+    "gold_val_raw": 116760629307.0,
+    "gold_final_answer": 116760.629307,
+    "metric": "chi phí quản lý"
+  },
+  {
+    "id": 18,
+    "question": "Vốn chủ sở hữu của FIT là bao nhiêu tỷ đồng vào ngày 31/12/2015?",
+    "gold_doc": "FIT_financial_statements_2015_consolidated",
+    "gold_table_line": 205,
+    "gold_val_raw": 660600044697.0,
+    "gold_final_answer": 660.600044697,
+    "metric": "vốn chủ sở hữu"
+  },
+  {
+    "id": 33,
+    "question": "Số dư dự phòng rủi ro cho vay khách hàng của Ngân hàng TMCP Quân đội là bao nhiêu triệu đồng vào cuối năm 2020?",
+    "gold_doc": "MBB_financial_statements_2020_consolidated",
+    "gold_table_line": 358,
+    "gold_val_raw": 247129710.0,
+    "gold_final_answer": 247.12971,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 44,
+    "question": "Tổng tài sản của STB là bao nhiêu triệu đồng vào cuối năm 2016?",
+    "gold_doc": "STB_financial_statements_2016_consolidated",
+    "gold_table_line": 187,
+    "gold_val_raw": 292032736.0,
+    "gold_final_answer": 292.032736,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 45,
+    "question": "Tổng nợ phải trả của công ty mẹ BAB đến ngày 31/12/2020 là bao nhiêu triệu đồng?",
+    "gold_doc": "BAB_financial_statements_2020_separate",
+    "gold_table_line": 1221,
+    "gold_val_raw": 34031118.0,
+    "gold_final_answer": 34031.118,
+    "metric": "nợ phải trả"
+  },
+  {
+    "id": 47,
+    "question": "Tổng chi phí bán hàng của PLX trong năm 2017 là bao nhiêu nghìn tỷ đồng?",
+    "gold_doc": "PLX_financial_statements_2017_consolidated",
+    "gold_table_line": 247,
+    "gold_val_raw": 7701328853813.0,
+    "gold_final_answer": 7.701328853813,
+    "metric": "chi phí bán hàng"
+  },
+  {
+    "id": 64,
+    "question": "Tổng tài sản của STB cuối năm 2021 là bao nhiêu triệu đồng?",
+    "gold_doc": "STB_financial_statements_2021_consolidated",
+    "gold_table_line": 181,
+    "gold_val_raw": 492516029.0,
+    "gold_final_answer": 492.516029,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 69,
+    "question": "Tiền gửi của khách hàng cuối năm 2019 của Ngân hàng TMCP Sài Gòn - Hà Nội là bao nhiêu triệu đồng?",
+    "gold_doc": "SHB_financial_statements_2019_consolidated",
+    "gold_table_line": 147,
+    "gold_val_raw": 225224141.0,
+    "gold_final_answer": 225.224141,
+    "metric": "tiền gửi của khách hàng"
+  },
+  {
+    "id": 71,
+    "question": "Doanh thu thuần về bán hàng và cung cấp dịch vụ của GEG trong năm 2025 là bao nhiêu tỷ đồng?",
+    "gold_doc": "GEG_financial_statements_2025_consolidated",
+    "gold_table_line": 454,
+    "gold_val_raw": 2325314422750.0,
+    "gold_final_answer": 2325.31442275,
+    "metric": "doanh thu thuần"
+  },
+  {
+    "id": 86,
+    "question": "Lợi nhuận sau thuế của Ngân hàng TMCP Sài Gòn Công Thương năm 2024 là bao nhiêu triệu đồng?",
+    "gold_doc": "SGB_financial_statements_2024_consolidated",
+    "gold_table_line": 348,
+    "gold_val_raw": 266789.0,
+    "gold_final_answer": 266.789,
+    "metric": "lợi nhuận sau thuế"
+  },
+  {
+    "id": 88,
+    "question": "Tổng tài sản của Ngân hàng TMCP Quốc Dân cuối năm 2019 là bao nhiêu triệu đồng?",
+    "gold_doc": "NVB_financial_statements_2019_consolidated",
+    "gold_table_line": 280,
+    "gold_val_raw": 72422170.0,
+    "gold_final_answer": 72422.17,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 90,
+    "question": "Chi phí khấu hao TSCĐ thuộc chi phí quản lý doanh nghiệp của Tập đoàn VINGROUP - CTCP (VIC) năm 2015 là bao nhiêu nghìn tỷ đồng?",
+    "gold_doc": "VIC_financial_statements_2015_consolidated",
+    "gold_table_line": 274,
+    "gold_val_raw": -2170716923462.0,
+    "gold_final_answer": -2.170716923462,
+    "metric": "chi phí quản lý"
+  },
+  {
+    "id": 98,
+    "question": "Tổng giá trị hàng tồn kho của công ty mẹ CTCP Tasco vào cuối năm 2024 là bao nhiêu tỷ đồng?",
+    "gold_doc": "HUT_financial_statements_2024_separate",
+    "gold_table_line": 328,
+    "gold_val_raw": 2487164779827.0,
+    "gold_final_answer": 2487.164779827,
+    "metric": "hàng tồn kho"
+  },
+  {
+    "id": 118,
+    "question": "Số dư cuối kỳ dự phòng chung cho các khoản cho vay khách hàng của công ty mẹ Ngân hàng TMCP Ngoại thương Việt Nam đến ngày 31/12/2015 là bao nhiêu triệu đồng?",
+    "gold_doc": "VCB_financial_statements_2015_separate",
+    "gold_table_line": 210,
+    "gold_val_raw": 314278045.0,
+    "gold_final_answer": 314.27804499999996,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 123,
+    "question": "Tổng cộng vốn chủ sở hữu của SSI cuối năm 2016 là bao nhiêu tỷ đồng?",
+    "gold_doc": "SSI_financial_statements_2016_consolidated",
+    "gold_table_line": 227,
+    "gold_val_raw": 6727609014290.0,
+    "gold_final_answer": 6727.60901429,
+    "metric": "vốn chủ sở hữu"
+  },
+  {
+    "id": 131,
+    "question": "Tiền và tương đương tiền cuối năm 2025 của công ty mẹ HUT là bao nhiêu tỷ đồng?",
+    "gold_doc": "HUT_financial_statements_2025_separate",
+    "gold_table_line": 305,
+    "gold_val_raw": 81362865591.0,
+    "gold_final_answer": 81.362865591,
+    "metric": "tiền và tương đương tiền"
+  },
+  {
+    "id": 139,
+    "question": "Doanh thu thuần về bán hàng và cung cấp dịch vụ của CTCP Hoàng Anh Gia Lai (HAG) năm 2020 là bao nhiêu nghìn đồng?",
+    "gold_doc": "HAG_financial_statements_2020_consolidated",
+    "gold_table_line": 411,
+    "gold_val_raw": 2075444024.0,
+    "gold_final_answer": 2075444.024,
+    "metric": "doanh thu thuần"
+  },
+  {
+    "id": 152,
+    "question": "Tổng tài sản hợp nhất của Ngân hàng TMCP Sài Gòn Công Thương (SGB) đến ngày 31/12/2023 là bao nhiêu triệu đồng?",
+    "gold_doc": "SGB_financial_statements_2023_consolidated",
+    "gold_table_line": 301,
+    "gold_val_raw": 27698047.0,
+    "gold_final_answer": 27698.047000000002,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 154,
+    "question": "Tiền và tương đương tiền đầu năm 2022 của CTCP Đầu tư Nam Long là bao nhiêu tỷ đồng?",
+    "gold_doc": "NLG_financial_statements_2022_consolidated",
+    "gold_table_line": 200,
+    "gold_val_raw": 3111621576852.0,
+    "gold_final_answer": 3111.621576852,
+    "metric": "tiền và tương đương tiền"
+  },
+  {
+    "id": 168,
+    "question": "Tổng nợ phải trả của công ty mẹ CTCP Bất động sản Thế Kỷ (CRE) vào cuối năm 2025 là bao nhiêu nghìn tỷ đồng?",
+    "gold_doc": "CRE_financial_statements_2025_separate",
+    "gold_table_line": 1165,
+    "gold_val_raw": 1370000000.0,
+    "gold_final_answer": 1.37,
+    "metric": "nợ phải trả"
+  },
+  {
+    "id": 184,
+    "question": "Số dư tiền và tương đương tiền cuối năm 2025 của công ty mẹ Tổng Công ty cổ phần Đầu tư Phát triển Xây dựng (DIG) là bao nhiêu tỷ đồng?",
+    "gold_doc": "DIG_financial_statements_2025_separate",
+    "gold_table_line": 333,
+    "gold_val_raw": 746853302518.0,
+    "gold_final_answer": 746.8533025180001,
+    "metric": "tiền và tương đương tiền"
+  },
+  {
+    "id": 197,
+    "question": "Tổng số dư dự phòng rủi ro cho vay khách hàng cuối năm 2018 của Ngân hàng TMCP Quốc tế Việt Nam là bao nhiêu triệu đồng?",
+    "gold_doc": "VIB_financial_statements_2018_consolidated",
+    "gold_table_line": 178,
+    "gold_val_raw": 78919360.0,
+    "gold_final_answer": 78919.36,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 208,
+    "question": "Dự phòng rủi ro cho vay khách hàng của STB cuối năm 2019 là bao nhiêu triệu đồng?",
+    "gold_doc": "STB_financial_statements_2019_consolidated",
+    "gold_table_line": 203,
+    "gold_val_raw": 253100111.0,
+    "gold_final_answer": 253.100111,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 235,
+    "question": "Dự phòng rủi ro cho vay khách hàng của Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh (HDB) cuối năm 2018 là bao nhiêu triệu đồng?",
+    "gold_doc": "HDB_financial_statements_2018_consolidated",
+    "gold_table_line": 211,
+    "gold_val_raw": 103336329.0,
+    "gold_final_answer": 103.33632899999999,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 237,
+    "question": "Tổng doanh thu thuần của GAS năm 2016 là bao nhiêu trăm tỷ đồng?",
+    "gold_doc": "GAS_financial_statements_2016_consolidated",
+    "gold_table_line": 389,
+    "gold_val_raw": 64300204038285.0,
+    "gold_final_answer": 643.0020403828499,
+    "metric": "doanh thu thuần"
+  },
+  {
+    "id": 245,
+    "question": "Lợi nhuận gộp của công ty mẹ Tổng công ty Phân bón và Hóa chất Dầu khí - CTCP trong năm 2024 là bao nhiêu tỷ đồng?",
+    "gold_doc": "DPM_financial_statements_2024_separate",
+    "gold_table_line": 444,
+    "gold_val_raw": 1402738923219.0,
+    "gold_final_answer": 1402.738923219,
+    "metric": "lợi nhuận gộp"
+  },
+  {
+    "id": 251,
+    "question": "Tiền và tương đương tiền cuối năm 2019 của công ty mẹ PRT là bao nhiêu tỷ đồng?",
+    "gold_doc": "PRT_financial_statements_2019_separate",
+    "gold_table_line": 187,
+    "gold_val_raw": 176439220988.0,
+    "gold_final_answer": 176.43922098800002,
+    "metric": "tiền và tương đương tiền"
+  },
+  {
+    "id": 256,
+    "question": "Lợi nhuận sau thuế hợp nhất của MCH năm 2019 là bao nhiêu trăm tỷ đồng?",
+    "gold_doc": "MCH_financial_statements_2019_consolidated",
+    "gold_table_line": 779,
+    "gold_val_raw": 4061678096011.0,
+    "gold_final_answer": 40.61678096011,
+    "metric": "lợi nhuận sau thuế"
+  },
+  {
+    "id": 257,
+    "question": "Lưu chuyển tiền thuần từ hoạt động kinh doanh của VAB năm 2025 là bao nhiêu trăm tỷ đồng?",
+    "gold_doc": "VAB_financial_statements_2025_consolidated",
+    "gold_table_line": 434,
+    "gold_val_raw": 4188595351078.0,
+    "gold_final_answer": 41.88595351078,
+    "metric": "lưu chuyển tiền thuần"
+  },
+  {
+    "id": 264,
+    "question": "Số tiền cho vay khách hàng nước ngoài của công ty mẹ SSB đến ngày 31 tháng 12 năm 2025 là bao nhiêu nghìn đồng?",
+    "gold_doc": "SSB_financial_statements_2025_separate",
+    "gold_table_line": 199,
+    "gold_val_raw": 202251998.0,
+    "gold_final_answer": 202251.998,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 271,
+    "question": "Tổng giá trị hàng tồn kho của CTCP Điện Gia Lai cuối năm 2025 là bao nhiêu tỷ đồng?",
+    "gold_doc": "GEG_financial_statements_2025_consolidated",
+    "gold_table_line": 396,
+    "gold_val_raw": 118822621030.0,
+    "gold_final_answer": 118.82262103000001,
+    "metric": "hàng tồn kho"
+  },
+  {
+    "id": 272,
+    "question": "Tổng tài sản đến ngày 31/12/2020 của công ty mẹ Ngân hàng TMCP Quân đội là bao nhiêu triệu đồng?",
+    "gold_doc": "MBB_financial_statements_2020_separate",
+    "gold_table_line": 1974,
+    "gold_val_raw": 482483609.0,
+    "gold_final_answer": 482.483609,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 278,
+    "question": "Tiền và tương đương tiền cuối năm 2023 của Tổng Công ty Lâm nghiệp Việt Nam - CTCP là bao nhiêu trăm tỷ đồng?",
+    "gold_doc": "VIF_financial_statements_2023_consolidated",
+    "gold_table_line": 245,
+    "gold_val_raw": 175995084474.0,
+    "gold_final_answer": 1.7599508447399999,
+    "metric": "tiền và tương đương tiền"
+  },
+  {
+    "id": 297,
+    "question": "Tổng tài sản của SJG tính đến ngày 31/12/2024 là bao nhiêu trăm tỷ đồng?",
+    "gold_doc": "SJG_financial_statements_2024_aggregated",
+    "gold_table_line": 346,
+    "gold_val_raw": 13086300915288.0,
+    "gold_final_answer": 130.86300915287998,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 310,
+    "question": "Doanh thu thuần của công ty mẹ CTCP Đầu tư Nam Long trong năm 2022 là bao nhiêu nghìn tỷ đồng?",
+    "gold_doc": "NLG_financial_statements_2022_separate",
+    "gold_table_line": 234,
+    "gold_val_raw": 4107948655392.0,
+    "gold_final_answer": 4.107948655392,
+    "metric": "doanh thu thuần"
+  },
+  {
+    "id": 315,
+    "question": "Tổng tài sản thuế thu nhập hoãn lại của công ty mẹ Tổng Công ty cổ phần Bia - Rượu - Nước giải khát Sài Gòn là bao nhiêu trăm tỷ đồng cuối năm 2023?",
+    "gold_doc": "SAB_financial_statements_2023_separate",
+    "gold_table_line": 342,
+    "gold_val_raw": 28619539457589.0,
+    "gold_final_answer": 286.19539457588996,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 317,
+    "question": "Số dư cho vay khách hàng là tổ chức của Ngân hàng TMCP Nam Á đến ngày 31/12/2022 là bao nhiêu triệu đồng?",
+    "gold_doc": "NAB_financial_statements_2022_consolidated_1",
+    "gold_table_line": 216,
+    "gold_val_raw": 101370504.0,
+    "gold_final_answer": 101.370504,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 340,
+    "question": "Tổng giá trị hàng tồn kho của công ty mẹ PVT cuối năm 2019 là bao nhiêu tỷ đồng?",
+    "gold_doc": "PVT_financial_statements_2019_separate",
+    "gold_table_line": 174,
+    "gold_val_raw": 56203934380.0,
+    "gold_final_answer": 56.20393438000001,
+    "metric": "hàng tồn kho"
+  },
+  {
+    "id": 350,
+    "question": "Giá trị thuần của hàng tồn kho của công ty mẹ CTCP Tập đoàn Hoa Sen đến ngày 30/09/2017 là bao nhiêu nghìn tỷ đồng?",
+    "gold_doc": "HSG_financial_statements_2017_separate",
+    "gold_table_line": 185,
+    "gold_val_raw": 3169484056346.0,
+    "gold_final_answer": 3.169484056346,
+    "metric": "hàng tồn kho"
+  },
+  {
+    "id": 356,
+    "question": "Số dư dự phòng rủi ro cho vay khách hàng của công ty mẹ Ngân hàng TMCP Công Thương Việt Nam đến ngày 31 tháng 12 năm 2019 là bao nhiêu triệu đồng?",
+    "gold_doc": "CTG_financial_statements_2019_separate",
+    "gold_table_line": 264,
+    "gold_val_raw": 843102654.0,
+    "gold_final_answer": 843.1026539999999,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 656,
+    "question": "Tỷ trọng các khoản tương đương tiền trên tổng tài sản của CTCP Viễn thông FPT cuối năm 2024 là bao nhiêu %?",
+    "gold_doc": "FPT_financial_statements_2024_consolidated",
+    "gold_table_line": 415,
+    "gold_val_raw": 60282827532899.0,
+    "gold_final_answer": 60282827532899.0,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 660,
+    "question": "Tỷ lệ cam kết ngoại bảng trên tổng tài sản của công ty mẹ Ngân hàng TMCP Công Thương Việt Nam tính đến ngày 31/12/2022 là bao nhiêu phần trăm?",
+    "gold_doc": "CTG_financial_statements_2022_separate",
+    "gold_table_line": 326,
+    "gold_val_raw": 1515618388.0,
+    "gold_final_answer": 1515618388.0,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 662,
+    "question": "Lợi nhuận sau thuế trên tổng tài sản cuối năm 2016 của CEO là bao nhiêu phần trăm?",
+    "gold_doc": "CEO_financial_statements_2016_consolidated",
+    "gold_table_line": 199,
+    "gold_val_raw": 2610556318895.0,
+    "gold_final_answer": 2610556318895.0,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 663,
+    "question": "Tỷ số nợ vay trên tổng tài sản của công ty mẹ HAG năm 2022 là bao nhiêu phần trăm?",
+    "gold_doc": "HAG_financial_statements_2022_separate",
+    "gold_table_line": 298,
+    "gold_val_raw": 14962628747.0,
+    "gold_final_answer": 14962628747.0,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 667,
+    "question": "Tỷ trọng nguyên giá tài sản cố định hữu hình trên tổng tài sản của công ty mẹ Ngân hàng TMCP Xuất nhập khẩu Việt Nam đến ngày 31/12/2023 là bao nhiêu phần trăm?",
+    "gold_doc": "EIB_financial_statements_2023_separate",
+    "gold_table_line": 319,
+    "gold_val_raw": 185309066.0,
+    "gold_final_answer": 185309066.0,
+    "metric": "tổng tài sản"
+  },
+  {
+    "id": 670,
+    "question": "Tỷ trọng nợ vay ngắn hạn ngân hàng trên tổng nợ phải trả tài chính của công ty mẹ CTCP Nông nghiệp BAF Việt Nam đầu năm 2020 là bao nhiêu %?",
+    "gold_doc": "BAF_financial_statements_2020_separate",
+    "gold_table_line": 1558,
+    "gold_val_raw": 4590219084540.0,
+    "gold_final_answer": 4590219084540.0,
+    "metric": "nợ phải trả"
+  },
+  {
+    "id": 676,
+    "question": "Tỷ lệ trích lập dự phòng rủi ro cho vay khách hàng trên lợi nhuận thuần của công ty mẹ Ngân hàng TMCP Ngoại thương Việt Nam năm 2017 là bao nhiêu phần trăm?",
+    "gold_doc": "VCB_financial_statements_2017_separate",
+    "gold_table_line": 211,
+    "gold_val_raw": 449108097.0,
+    "gold_final_answer": 449108097.0,
+    "metric": "cho vay khách hàng"
+  },
+  {
+    "id": 679,
+    "question": "Lợi nhuận gộp của FOX năm 2016 là bao nhiêu tỷ đồng?",
+    "gold_doc": "FOX_financial_statements_2016_consolidated",
+    "gold_table_line": 235,
+    "gold_val_raw": 2648266411952.0,
+    "gold_final_answer": 2648.266411952,
+    "metric": "lợi nhuận gộp"
+  }
+]
